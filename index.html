@@ -1,53 +1,954 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width,initial-scale=1.0" name="viewport" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Mohamed Helmy | Kotlin Multiplatform Engineer</title>
+    <meta name="description"
+        content="Mohamed Helmy — Senior Android & Kotlin Multiplatform Engineer building offline-first, MVI-driven cross-platform apps for Android, iOS, Desktop, and Web.">
 
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: #000;
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+        rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#A855F7",
+                        "primary-container": "#b76dff",
+                        background: "#0B0F19",
+                        surface: "#161B2B",
+                        "surface-container": "#1c1f2a",
+                        "surface-container-high": "#262a35",
+                        "surface-container-low": "#171b26",
+                        "surface-variant": "#313540",
+                        "on-surface": "#dfe2f1",
+                        "on-surface-variant": "#94A3B8",
+                        outline: "#988d9f",
+                        "outline-variant": "#4d4354",
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px",
+                    },
+                    spacing: {
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px",
+                        "container-max": "1200px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                        "section-gap": "120px",
+                        gutter: "24px",
+                    },
+                    fontFamily: {
+                        display: ["Hanken Grotesk"],
+                        body: ["Inter"],
+                        mono: ["JetBrains Mono"],
+                    },
+                    fontSize: {
+                        "display-lg": ["72px", { lineHeight: "80px", letterSpacing: "-0.02em", fontWeight: "800" }],
+                        "display-lg-mobile": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "800" }],
+                        "headline-md": ["32px", { lineHeight: "40px", fontWeight: "600" }],
+                        "body-lg": ["18px", { lineHeight: "28px" }],
+                        "body-md": ["16px", { lineHeight: "24px" }],
+                        "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "500" }],
+                        "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }],
+                    },
+                },
+            },
         }
-    </style>
+    </script>
 </head>
 
-<body>
-    <!-- STITCH_SHADER_START:ANIMATION_43 class="fixed inset-0 w-full h-full" -->
-    <div class="fixed inset-0 w-full h-full" style="display:block;">
-        <canvas id="shader-canvas-ANIMATION_43" style="display:block;width:100%;height:100%"></canvas>
-        <script>
-            (function () {
-                const canvas = document.getElementById('shader-canvas-ANIMATION_43');
+<body class="bg-background text-on-surface antialiased">
 
-                // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
-                // This fires on initial layout and whenever the element is resized.
+    <!-- ═══════════════════ SHADER BACKGROUND ═══════════════════ -->
+    <div class="fixed inset-0 w-full h-full -z-10">
+        <canvas id="shader-canvas" style="display:block;width:100%;height:100%"></canvas>
+    </div>
+
+    <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
+    <nav class="w-full top-0 sticky bg-background/80 backdrop-blur-md z-50 border-b border-white/5">
+        <div
+            class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop h-20 flex items-center justify-between">
+
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <img src="assets/profile.png" alt="Mohamed Helmy"
+                    class="w-8 h-8 rounded-full object-cover border border-primary/30 group-hover:scale-110 transition-transform">
+                <span class="font-display text-xl font-bold text-white">Mohamed Helmy</span>
+            </a>
+
+            <!-- Desktop links -->
+            <div class="desktop-nav hidden md:flex gap-8">
+                <a href="#experience"
+                    class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium">Experience</a>
+                <a href="#projects"
+                    class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium">Projects</a>
+                <a href="#tech"
+                    class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium">Stack</a>
+                <a href="#certifications"
+                    class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium">Certifications</a>
+                <a href="#contact"
+                    class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="#contact"
+                    class="hidden md:inline-flex bg-primary text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-all glow-button">Let's
+                    Talk</a>
+                <!-- Hamburger -->
+                <button id="hamburger-btn" class="hamburger md:hidden" aria-label="Open menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="mobile-menu">
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#tech">Stack</a>
+            <a href="#certifications">Certifications</a>
+            <a href="#contact">Contact</a>
+            <a href="assets/MOHAMED-HELMY-Resume.pdf" download class="!text-primary font-semibold">Download Resume ↓</a>
+        </div>
+    </nav>
+
+    <!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+    <main class="relative z-10">
+
+        <!-- ──────────── HERO ──────────── -->
+        <section class="hero-section">
+            <div class="max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+                    <!-- Left: Text -->
+                    <div>
+                        <!-- Status badges -->
+                        <div class="animate-fade-up delay-100 flex flex-wrap gap-3 mb-6">
+                            <span
+                                class="bg-surface/60 backdrop-blur px-4 py-2 rounded-full border border-outline-variant text-sm flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-primary animate-pulse inline-block"></span>
+                                Available for Contracts
+                            </span>
+                        </div>
+
+                        <!-- Headline -->
+                        <div class="animate-fade-up delay-200">
+                            <p class="font-mono text-primary uppercase tracking-widest text-sm mb-3">Kotlin
+                                Multiplatform
+                                Engineer</p>
+                            <h1 class="font-display text-display-lg-mobile md:text-display-lg text-white leading-tight">
+                                Building<br>
+                                <span class="text-primary min-h-[120px] md:min-h-[180px] inline-block align-top"
+                                    id="typed-text">Native Android Apps</span>
+                            </h1>
+                            <p class="text-on-surface-variant text-body-lg mt-6 max-w-xl">
+                                Offline‑first, MVI, and KMP — delivering high‑performance shared logic across
+                                <strong class="text-on-surface font-medium">Android, iOS, Desktop, and Web.</strong>
+                            </p>
+                        </div>
+
+                        <!-- CTAs -->
+                        <div class="animate-fade-up delay-300 flex flex-wrap gap-4 mt-10">
+                            <a href="#projects"
+                                class="bg-primary text-white px-8 py-3 rounded-xl font-semibold hover:bg-primary/90 transition-all glow-button">
+                                View Work →
+                            </a>
+                            <a href="assets/MOHAMED-HELMY-Resume.pdf" download
+                                class="border border-on-surface-variant px-8 py-3 rounded-xl hover:bg-surface-variant transition-all font-medium flex items-center gap-2">
+                                <span class="material-symbols-outlined text-base leading-none"
+                                    style="font-size:18px">download</span>
+                                Resume
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- Right: Overlapping mockup screenshots -->
+                    <div class="animate-fade-up delay-300 hero-parallax relative flex justify-center items-center h-[500px] lg:h-[650px]"
+                        id="hero-mockups">
+                        <div class="relative flex items-center justify-center gap-0">
+                            <div class="float-1 parallax-layer z-10 -mr-28 md:-mr-36" data-parallax-factor="20">
+                                <div class="transform -rotate-6 hover:rotate-0 transition-transform duration-500">
+                                    <img src="assets/safar.png" alt="Safar App"
+                                        class="mockup-flipped w-[300px] md:w-[400px] rounded-[2.5rem] shadow-2xl border-8 border-surface-container-highest">
+                                </div>
+                            </div>
+                            <div class="float-2 parallax-layer z-20" data-parallax-factor="-20">
+                                <div class="transform rotate-6 hover:rotate-0 transition-transform duration-500">
+                                    <img src="assets/crosscart.png" alt="CrossCart App"
+                                        class="w-[300px] md:w-[400px] rounded-[2.5rem] shadow-2xl border-8 border-surface-container-lowest">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ──────────── EXPERIENCE ──────────── -->
+        <section id="experience"
+            class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
+
+            <!-- Hero Title -->
+            <div class="mb-16 md:mb-20">
+                <div class="section-accent"></div>
+                <h2 class="font-display text-display-lg-mobile md:text-display-lg text-white leading-tight">
+                    Professional <br>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary">Narrative.</span>
+                </h2>
+                <p class="text-on-surface-variant text-body-lg mt-4 max-w-2xl">
+                    A journey through complex system architectures, cross-platform fluidities, and building modern
+                    mobile experiences with Kotlin Multiplatform.
+                </p>
+            </div>
+
+            <!-- Timeline -->
+            <div class="relative">
+                <!-- Desktop timeline line -->
+                <div
+                    class="absolute left-[39px] md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-outline-variant/30 to-transparent timeline-line hidden md:block">
+                </div>
+                <!-- Mobile timeline line -->
+                <div
+                    class="absolute left-[39px] top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-outline-variant/30 to-transparent timeline-line block md:hidden">
+                </div>
+
+                <div class="space-y-16 md:space-y-section-gap relative z-10">
+
+                    <!-- ── Entry 1: Areeb Technology ── -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center group reveal-item"
+                        style="transition-delay: 0.2s;">
+                        <!-- Timeline node -->
+                        <div
+                            class="absolute left-0 md:left-1/2 w-8 h-8 rounded-full bg-surface-container-low border-2 border-primary flex items-center justify-center z-20 md:-translate-x-1/2 timeline-node">
+                            <div class="dot-inner"></div>
+                        </div>
+                        <!-- Meta (left) -->
+                        <div class="md:w-1/2 md:pr-16 pl-12 md:pl-0 text-left md:text-right mb-2 md:mb-0">
+                            <div class="font-mono text-primary text-sm uppercase tracking-wider mb-2">10/2023 – Present
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Areeb Technology</h3>
+                            <p class="text-on-surface-variant italic">Senior Android / KMP Engineer</p>
+                        </div>
+                        <!-- Card (right) -->
+                        <div class="md:w-1/2 md:pl-16 pl-12 w-full float-slow">
+                            <div
+                                class="glass-card rounded-xl p-8 glow-amethyst transition-transform duration-500 hover:-translate-y-2">
+                                <p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                                    Spearheaded the migration of legacy Android applications to a unified Kotlin
+                                    Multiplatform architecture. Designed scalable core libraries for networking, local
+                                    storage, and domain logic, significantly reducing code duplication across iOS and
+                                    Android teams.
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Kotlin Multiplatform</span>
+                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Jetpack Compose</span>
+                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Coroutines/Flow</span>
+                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Ktor</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ── Entry 2: Freelance ERP/POS ── -->
+                    <div class="relative flex flex-col md:flex-row-reverse items-start md:items-center group reveal-item"
+                        style="transition-delay: 0.3s;">
+                        <!-- Timeline node -->
+                        <div
+                            class="absolute left-0 md:left-1/2 w-8 h-8 rounded-full bg-surface-container-low border-2 border-primary flex items-center justify-center z-20 md:-translate-x-1/2 timeline-node">
+                            <div class="dot-inner"></div>
+                        </div>
+                        <!-- Meta (right) -->
+                        <div class="md:w-1/2 md:pl-16 pl-12 text-left mb-2 md:mb-0">
+                            <div class="font-mono text-primary text-sm uppercase tracking-wider mb-2">05/2025 – 09/2025
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Freelance ERP / POS System</h3>
+                            <p class="text-on-surface-variant italic">Freelance KMP Engineer</p>
+                        </div>
+                        <!-- Card (left) -->
+                        <div class="md:w-1/2 md:pr-16 pl-12 w-full float-medium">
+                            <div
+                                class="glass-card rounded-xl p-8 glow-amethyst transition-transform duration-500 hover:-translate-y-2">
+                                <p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                                    Architected and developed a full-stack Point of Sale and Enterprise Resource
+                                    Planning solution. Utilized Compose Multiplatform to deliver pixel-perfect UI across
+                                    Desktop (JVM), Android, and iOS from a single codebase, drastically cutting
+                                    time-to-market.
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Compose Multiplatform</span>
+                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">SQLDelight</span>
+                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Decompose</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ──────────── PROJECTS ──────────── -->
+        <section id="projects" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
+
+            <div class="mb-16 text-center">
+                <h2 class="text-3xl md:text-4xl font-display text-white">Featured Projects</h2>
+            </div>
+
+            <div class="space-y-section-gap">
+
+                <!-- Safar Logistics Platform -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center reveal-item">
+                    <div
+                        class="order-2 lg:order-1 bg-surface-container-low aspect-square lg:aspect-[4/3] flex items-center justify-center p-8 border border-outline-variant relative overflow-hidden group rounded-xl border-primary/20 shadow-2xl">
+                        <div
+                            class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                        <div class="text-on-surface-variant flex flex-col items-center">
+                            <span
+                                class="material-symbols-outlined text-[64px] mb-4 text-primary/40">local_shipping</span>
+                            <span class="text-xs font-mono text-primary/60 tracking-widest uppercase">Project
+                                Mockup</span>
+                        </div>
+                    </div>
+                    <div class="order-1 lg:order-2 space-y-8">
+                        <div>
+                            <p class="text-sm font-mono text-primary uppercase tracking-widest mb-4">Freelance Contract,
+                                Oct 2025 – Apr 2026</p>
+                            <h3 class="text-white leading-tight text-3xl font-display">Safar Logistics Platform</h3>
+                        </div>
+                        <p class="text-body-lg text-on-surface-variant">Built a scalable logistics framework leveraging
+                            Kotlin Multiplatform and MVI reactive UI systems for automated payroll and fleet tracking.
+                        </p>
+                        <div>
+                            <h4
+                                class="text-sm font-mono text-white uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <span class="w-8 h-px bg-primary"></span> Key Achievements
+                            </h4>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary mt-0.5"
+                                        style="font-size:18px">check_circle</span>
+                                    <span class="text-on-surface-variant">85% Code Reuse</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary mt-0.5"
+                                        style="font-size:18px">check_circle</span>
+                                    <span class="text-on-surface-variant">Zero UI lag</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary mt-0.5"
+                                        style="font-size:18px">check_circle</span>
+                                    <span class="text-on-surface-variant">Unified pipeline</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-wrap gap-2 pt-4">
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">KMP</span>
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">MVI</span>
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Supabase</span>
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Compose
+                                Multiplatform</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Freelance ERP & POS System -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center reveal-item">
+                    <div class="space-y-8">
+                        <div>
+                            <p class="text-sm font-mono text-primary uppercase tracking-widest mb-4">Freelance Contract,
+                                May 2025 – Sep 2025</p>
+                            <h3 class="text-white leading-tight text-3xl font-display">Freelance ERP &amp; POS System
+                            </h3>
+                        </div>
+                        <p class="text-body-lg text-on-surface-variant">Engineered a production-ready, cross-platform
+                            Android &amp; Desktop POS system implementing intelligent Delta Sync for seamless
+                            offline-first operation.</p>
+                        <div>
+                            <h4
+                                class="text-sm font-mono text-white uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <span class="w-8 h-px bg-primary"></span> Key Achievements
+                            </h4>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary mt-0.5"
+                                        style="font-size:18px">check_circle</span>
+                                    <span class="text-on-surface-variant">Offline-first data resilience</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary mt-0.5"
+                                        style="font-size:18px">check_circle</span>
+                                    <span class="text-on-surface-variant">Intelligent Delta Sync engine</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary mt-0.5"
+                                        style="font-size:18px">check_circle</span>
+                                    <span class="text-on-surface-variant">Room &amp; Supabase integration</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-wrap gap-2 pt-4">
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">KMP</span>
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Room</span>
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Delta
+                                Sync</span>
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Desktop
+                                &amp; Android</span>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-surface-container-low aspect-square lg:aspect-[4/3] flex items-center justify-center p-8 border border-outline-variant relative overflow-hidden group rounded-xl border-primary/20 shadow-2xl">
+                        <div
+                            class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                        <div class="text-on-surface-variant flex flex-col items-center">
+                            <span
+                                class="material-symbols-outlined text-[64px] mb-4 text-primary/40">point_of_sale</span>
+                            <span class="text-xs font-mono text-primary/60 tracking-widest uppercase">Project
+                                Mockup</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CrossCart -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center reveal-item">
+                    <div
+                        class="order-2 lg:order-1 bg-surface-container-low aspect-square lg:aspect-[4/3] flex items-center justify-center p-8 border border-outline-variant relative overflow-hidden group rounded-xl border-primary/20 shadow-2xl">
+                        <div
+                            class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                        <div class="text-on-surface-variant flex flex-col items-center">
+                            <span
+                                class="material-symbols-outlined text-[64px] mb-4 text-primary/40">shopping_cart</span>
+                            <span class="text-xs font-mono text-primary/60 tracking-widest uppercase">Project
+                                Mockup</span>
+                        </div>
+                    </div>
+                    <div class="order-1 lg:order-2 space-y-8">
+                        <div>
+                            <p class="text-sm font-mono text-primary uppercase tracking-widest mb-4">Active / Portfolio,
+                                Featured Project</p>
+                            <h3 class="text-white leading-tight text-3xl font-display">CrossCart</h3>
+                        </div>
+                        <p class="text-body-lg text-on-surface-variant">A cross-platform retail application utilizing a
+                            single codebase for Android, iOS, and Desktop with a focus on real-time data
+                            synchronization.</p>
+                        <div>
+                            <h4
+                                class="text-sm font-mono text-white uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <span class="w-8 h-px bg-primary"></span> Key Achievements
+                            </h4>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary mt-0.5"
+                                        style="font-size:18px">check_circle</span>
+                                    <span class="text-on-surface-variant">MVI architecture implementation</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary mt-0.5"
+                                        style="font-size:18px">check_circle</span>
+                                    <span class="text-on-surface-variant">Native-performance retail UI</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary mt-0.5"
+                                        style="font-size:18px">check_circle</span>
+                                    <span class="text-on-surface-variant">Seamless data sync</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-wrap gap-2 pt-4">
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Compose
+                                Multiplatform</span>
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">KMP</span>
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">MVI</span>
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">GitHub</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IoT Environmental Monitor -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center reveal-item">
+                    <div class="space-y-8">
+                        <div>
+                            <p class="text-sm font-mono text-primary uppercase tracking-widest mb-4">Personal Project,
+                                2025</p>
+                            <h3 class="text-white leading-tight text-3xl font-display">IoT Environmental Monitor</h3>
+                        </div>
+                        <p class="text-body-lg text-on-surface-variant">Engineered a full-stack IoT solution where an
+                            ESP8266 sensor streams real-time environmental data to Firebase, displayed in a native
+                            Android app with a live dashboard and push notifications.</p>
+                        <div>
+                            <h4
+                                class="text-sm font-mono text-white uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <span class="w-8 h-px bg-primary"></span> Key Achievements
+                            </h4>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary mt-0.5"
+                                        style="font-size:18px">check_circle</span>
+                                    <span class="text-on-surface-variant">Real-time sensor data ingestion via ESP8266</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary mt-0.5"
+                                        style="font-size:18px">check_circle</span>
+                                    <span class="text-on-surface-variant">Firebase Realtime Database sync &amp; cloud storage</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary mt-0.5"
+                                        style="font-size:18px">check_circle</span>
+                                    <span class="text-on-surface-variant">Native Android dashboard with push alerts</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-wrap gap-2 pt-4">
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">ESP8266</span>
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Firebase</span>
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Android</span>
+                            <span
+                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Push
+                                Notifications</span>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-surface-container-low aspect-square lg:aspect-[4/3] flex items-center justify-center p-8 border border-outline-variant relative overflow-hidden group rounded-xl border-primary/20 shadow-2xl">
+                        <div
+                            class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                        <div class="text-on-surface-variant flex flex-col items-center">
+                            <span
+                                class="material-symbols-outlined text-[64px] mb-4 text-primary/40">sensors</span>
+                            <span class="text-xs font-mono text-primary/60 tracking-widest uppercase">Project
+                                Mockup</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ──────────── TECH STACK ──────────── -->
+        <section id="tech" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
+
+            <header class="mb-16 md:mb-20 text-center md:text-left">
+                <div class="section-accent"></div>
+                <h2 class="font-display text-display-lg-mobile md:text-display-lg text-primary glow-text leading-tight">
+                    The Architecture of Native Fluidity
+                </h2>
+                <p class="text-on-surface-variant text-body-lg mt-4 max-w-2xl">
+                    A curated ecosystem designed to maximize code sharing while uncompromising on platform-specific UI
+                    rendering and performance.
+                </p>
+            </header>
+
+            <!-- Core Multiplatform -->
+            <section
+                class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-gutter mb-section-gap items-center reveal-item">
+                <div class="lg:col-span-5 order-2 lg:order-1">
+                    <div
+                        class="relative bg-surface-container rounded-xl p-8 border-t border-outline-variant/20 shadow-lg min-h-[400px] flex items-center justify-center overflow-hidden group">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none">
+                        </div>
+                        <div class="flex flex-wrap justify-center items-center gap-4 relative z-10 p-4">
+                            <span
+                                class="px-6 py-3 rounded-full bubble-glow text-primary text-2xl font-display hover:bg-surface-container-highest transition-colors cursor-default transform hover:scale-105 duration-300">KMP</span>
+                            <span
+                                class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-xl hover:border-primary/50 transition-colors cursor-default">Kotlin</span>
+                            <span
+                                class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant border border-outline-variant/20 hover:text-on-surface transition-colors cursor-default">Coroutines</span>
+                            <span
+                                class="px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant border border-outline-variant/10 text-sm font-mono hover:text-on-surface transition-colors cursor-default">Serialization</span>
+                            <span
+                                class="px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant border border-outline-variant/10 text-sm font-mono hover:text-on-surface transition-colors cursor-default">Ktor</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-6 lg:col-start-7 order-1 lg:order-2 mb-6 lg:mb-0">
+                    <h3 class="text-2xl font-bold flex items-center gap-2 text-primary mb-2">
+                        <span class="material-symbols-outlined text-primary">hub</span>
+                        The Shared Engine
+                    </h3>
+                    <div class="w-12 h-1 bg-primary mb-6 rounded-full"></div>
+                    <p class="text-on-surface-variant text-body-lg leading-relaxed">
+                        At the heart of the architecture lies Kotlin Multiplatform. The philosophy here is strict
+                        separation of concerns: write the business logic, networking, and data management once. This
+                        creates a highly testable, robust core engine that acts as the single source of truth for all
+                        platforms, ensuring consistency without sacrificing native capabilities.
+                    </p>
+                </div>
+            </section>
+
+            <!-- UI Layer -->
+            <section
+                class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-gutter mb-section-gap items-center reveal-item">
+                <div class="lg:col-span-6 mb-6 lg:mb-0">
+                    <h3 class="text-2xl font-bold flex items-center gap-2 text-[#c0c1ff] mb-2">
+                        <span class="material-symbols-outlined text-[#c0c1ff]">view_quilt</span>
+                        The Native Canvas
+                    </h3>
+                    <div class="w-12 h-1 bg-[#c0c1ff] mb-6 rounded-full"></div>
+                    <p class="text-on-surface-variant text-body-lg leading-relaxed">
+                        While logic is shared, the UI remains fiercely native. Utilizing declarative frameworks allows
+                        each application to feel completely at home on its respective OS. Jetpack Compose provides a
+                        fluid, modern Android experience, while SwiftUI ensures iOS feels polished and idiomatic. The
+                        result is zero compromise on user experience.
+                    </p>
+                </div>
+                <div class="lg:col-span-5 lg:col-start-8">
+                    <div
+                        class="relative bg-surface-container rounded-xl p-8 border-t border-outline-variant/20 shadow-lg min-h-[400px] flex items-center justify-center overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-bl from-primary/10 to-transparent pointer-events-none">
+                        </div>
+                        <div class="flex flex-col items-center gap-6 relative z-10 w-full">
+                            <div class="flex justify-center gap-4 w-full">
+                                <span
+                                    class="px-5 py-2.5 rounded-lg bubble-glow text-primary text-[28px] font-display hover:bg-surface-container-highest transition-colors cursor-default transform -rotate-2">Compose</span>
+                                <span
+                                    class="px-5 py-2.5 rounded-lg bg-surface-container-high text-on-surface border border-outline-variant/30 text-[28px] font-display hover:border-[#c0c1ff]/50 transition-colors cursor-default transform rotate-3">SwiftUI</span>
+                            </div>
+                            <div class="flex justify-center gap-3 flex-wrap">
+                                <span
+                                    class="px-4 py-1 rounded-full bg-surface-container-low text-on-surface-variant border border-outline-variant/10 text-sm cursor-default">Material
+                                    3</span>
+                                <span
+                                    class="px-4 py-1 rounded-full bg-surface-container-low text-on-surface-variant border border-outline-variant/10 text-sm cursor-default">Human
+                                    Interface</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-surface-container-low text-on-surface-variant border border-outline-variant/10 text-xs cursor-default">Animations</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI & Data Engineering -->
+            <section
+                class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-gutter mb-section-gap items-center reveal-item">
+                <div class="lg:col-span-5 order-2 lg:order-1">
+                    <div
+                        class="relative bg-surface-container rounded-xl p-8 border-t border-outline-variant/20 shadow-lg min-h-[400px] flex items-center justify-center overflow-hidden group">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none">
+                        </div>
+                        <div class="flex flex-wrap justify-center items-center gap-4 relative z-10 p-4">
+                            <span
+                                class="px-6 py-3 rounded-full bubble-glow text-primary text-2xl font-display hover:bg-surface-container-highest transition-colors cursor-default transform hover:scale-105 duration-300">Supabase</span>
+                            <span
+                                class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-xl hover:border-[#ffb0cd]/50 transition-colors cursor-default">LLMs</span>
+                            <span
+                                class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant border border-outline-variant/20 hover:text-on-surface transition-colors cursor-default">GraphQL</span>
+                            <span
+                                class="px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant border border-outline-variant/10 text-sm font-mono hover:text-on-surface transition-colors cursor-default">Edge
+                                Functions</span>
+                            <span
+                                class="px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant border border-outline-variant/10 text-sm font-mono hover:text-on-surface transition-colors cursor-default">RLS</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-6 lg:col-start-7 order-1 lg:order-2 mb-6 lg:mb-0">
+                    <h3 class="text-2xl font-bold flex items-center gap-2 text-primary mb-2">
+                        <span class="material-symbols-outlined text-primary">memory</span>
+                        AI &amp; Data Engineering
+                    </h3>
+                    <div class="w-12 h-1 bg-primary mb-6 rounded-full"></div>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-2">AI Integration</h4>
+                            <p class="text-on-surface-variant text-body-lg leading-relaxed">
+                                Deep integration of LLM-driven development for code generation, architectural analysis,
+                                and automated UI mapping.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-2">Backend &amp; Data</h4>
+                            <p class="text-on-surface-variant text-body-lg leading-relaxed">
+                                Supabase (Auth, Realtime Sync, Edge Functions, RLS) and GraphQL/REST API integration.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DevOps & Lifecycle -->
+            <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-gutter items-center reveal-item">
+                <div class="lg:col-span-6 mb-6 lg:mb-0">
+                    <h3 class="text-2xl font-bold flex items-center gap-2 text-[#ddb7ff] mb-2">
+                        <span class="material-symbols-outlined text-[#ddb7ff]">rocket_launch</span>
+                        DevOps &amp; Lifecycle
+                    </h3>
+                    <div class="w-12 h-1 bg-[#ddb7ff] mb-6 rounded-full"></div>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-2">Automation</h4>
+                            <p class="text-on-surface-variant text-body-lg leading-relaxed">
+                                GitHub Actions for CI/CD, Gradle-based build optimization.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-2">Quality Assurance</h4>
+                            <p class="text-on-surface-variant text-body-lg leading-relaxed">
+                                Unit testing with Mokkery/Mockito, Compose UI Testing.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 lg:col-start-8">
+                    <div
+                        class="relative bg-surface-container rounded-xl p-8 border-t border-outline-variant/20 shadow-lg min-h-[400px] flex items-center justify-center overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-bl from-primary/10 to-transparent pointer-events-none">
+                        </div>
+                        <div class="flex flex-col items-center gap-6 relative z-10 w-full">
+                            <div class="flex justify-center gap-4 w-full flex-wrap">
+                                <span
+                                    class="px-5 py-2.5 rounded-lg bubble-glow text-primary text-[28px] font-display hover:bg-surface-container-highest transition-colors cursor-default transform -rotate-2">GitHub
+                                    Actions</span>
+                                <span
+                                    class="px-5 py-2.5 rounded-lg bg-surface-container-high text-on-surface border border-outline-variant/30 text-[28px] font-display hover:border-primary/50 transition-colors cursor-default transform rotate-3 mt-4">Gradle</span>
+                            </div>
+                            <div class="flex justify-center gap-3 flex-wrap">
+                                <span
+                                    class="px-4 py-1 rounded-full bg-surface-container-low text-on-surface-variant border border-outline-variant/10 text-sm cursor-default">Mokkery</span>
+                                <span
+                                    class="px-4 py-1 rounded-full bg-surface-container-low text-on-surface-variant border border-outline-variant/10 text-sm cursor-default">Mockito</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-surface-container-low text-on-surface-variant border border-outline-variant/10 text-xs cursor-default">Compose
+                                    Testing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- ──────────── CERTIFICATIONS ──────────── -->
+        <section id="certifications"
+            class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
+
+            <div class="reveal-on-scroll mb-10">
+                <div class="section-accent"></div>
+                <h2 class="font-display text-3xl md:text-4xl text-white font-bold">Certifications</h2>
+                <p class="text-on-surface-variant mt-2">Verified expertise &amp; continuous learning</p>
+            </div>
+
+            <div class="reveal-on-scroll flex flex-wrap gap-4 justify-center md:justify-start">
+                <div class="cert-pill rounded-full px-6 py-3 flex items-center gap-3">
+                    <span class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_#A855F7] flex-shrink-0"></span>
+                    <div>
+                        <p class="font-mono text-sm font-medium text-white">DEBI Android Developer Track</p>
+                        <p class="font-mono text-xs text-on-surface-variant">2025</p>
+                    </div>
+                </div>
+                <div class="cert-pill rounded-full px-6 py-3 flex items-center gap-3">
+                    <span class="w-2 h-2 rounded-full bg-primary/70 flex-shrink-0"></span>
+                    <div>
+                        <p class="font-mono text-sm font-medium text-white">ITI Android Track</p>
+                        <p class="font-mono text-xs text-on-surface-variant">2023</p>
+                    </div>
+                </div>
+                <div class="cert-pill rounded-full px-6 py-3 flex items-center gap-3">
+                    <span class="w-2 h-2 rounded-full bg-primary/70 flex-shrink-0"></span>
+                    <div>
+                        <p class="font-mono text-sm font-medium text-white">Udacity Advanced Android Nanodegree</p>
+                        <p class="font-mono text-xs text-on-surface-variant">2022</p>
+                    </div>
+                </div>
+                <div class="cert-pill rounded-full px-6 py-3 flex items-center gap-3">
+                    <span class="w-2 h-2 rounded-full bg-primary/70 flex-shrink-0"></span>
+                    <div>
+                        <p class="font-mono text-sm font-medium text-white">DeepLearning.AI ML Specialization</p>
+                        <p class="font-mono text-xs text-on-surface-variant">2022</p>
+                    </div>
+                </div>
+                <div class="cert-pill rounded-full px-6 py-3 flex items-center gap-3">
+                    <span class="w-2 h-2 rounded-full bg-primary/70 flex-shrink-0"></span>
+                    <div>
+                        <p class="font-mono text-sm font-medium text-white">CS50 Harvard</p>
+                        <p class="font-mono text-xs text-on-surface-variant">2021</p>
+                    </div>
+                </div>
+                <div class="cert-pill rounded-full px-6 py-3 flex items-center gap-3">
+                    <span class="w-2 h-2 rounded-full bg-primary/70 flex-shrink-0"></span>
+                    <div>
+                        <p class="font-mono text-sm font-medium text-white">Algorithmic Toolbox (Coursera)</p>
+                        <p class="font-mono text-xs text-on-surface-variant">2021</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──────────── CONTACT ──────────── -->
+        <section id="contact" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
+
+            <div class="reveal-on-scroll glass-card rounded-3xl overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2">
+
+                    <!-- Left: Info -->
+                    <div class="p-8 md:p-12 bg-surface-container-high/50">
+                        <span class="font-mono text-primary uppercase tracking-widest text-sm">Get in touch</span>
+                        <h3 class="text-3xl font-bold mt-2 mb-6 text-white font-display">Let's build something
+                            exceptional</h3>
+                        <div class="space-y-3">
+                            <a href="mailto:mohelmy.eng@gmail.com"
+                                class="flex items-center gap-4 p-3 rounded-xl bg-surface-container-low border border-outline-variant hover:border-primary/50 transition-colors">
+                                <span class="material-symbols-outlined text-primary" style="font-size:20px">mail</span>
+                                <span class="text-sm">mohelmy.eng@gmail.com</span>
+                            </a>
+                            <div
+                                class="flex items-center gap-4 p-3 rounded-xl bg-surface-container-low border border-outline-variant">
+                                <span class="material-symbols-outlined text-primary"
+                                    style="font-size:20px">location_on</span>
+                                <span class="text-sm">Remote / Worldwide</span>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 p-3 rounded-xl bg-surface-container-low border border-outline-variant">
+                                <span class="material-symbols-outlined text-primary"
+                                    style="font-size:20px">schedule</span>
+                                <span class="text-sm">Available for new projects</span>
+                            </div>
+                        </div>
+
+                        <!-- Social links -->
+                        <div class="flex gap-3 mt-8">
+                            <!-- GitHub -->
+                            <a href="https://github.com/helmy2" target="_blank" rel="noopener" class="social-btn"
+                                aria-label="GitHub">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                                </svg>
+                            </a>
+                            <!-- LinkedIn -->
+                            <a href="https://linkedin.com/in/mo-helmy" target="_blank" rel="noopener" class="social-btn"
+                                aria-label="LinkedIn">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                </svg>
+                            </a>
+                            <!-- Resume download -->
+                            <a href="assets/MOHAMED-HELMY-Resume.pdf" download class="social-btn"
+                                aria-label="Download Resume">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM12 17l-4-4h2.5v-4h3v4H16l-4 4z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right: Form -->
+                    <div class="p-8 md:p-12 bg-surface-container">
+                        <form id="contact-form"
+                            onsubmit="event.preventDefault(); document.getElementById('form-success').classList.remove('hidden'); this.reset();">
+                            <div class="mb-4">
+                                <label for="name" class="block text-sm mb-1 text-on-surface-variant">Name</label>
+                                <input id="name" type="text" required
+                                    class="w-full bg-[#080B14] border border-outline-variant rounded-lg px-4 py-3 text-sm focus:border-primary transition-colors">
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-sm mb-1 text-on-surface-variant">Email</label>
+                                <input id="email" type="email" required
+                                    class="w-full bg-[#080B14] border border-outline-variant rounded-lg px-4 py-3 text-sm focus:border-primary transition-colors">
+                            </div>
+                            <div class="mb-4">
+                                <label for="message" class="block text-sm mb-1 text-on-surface-variant">Message</label>
+                                <textarea id="message" rows="4" required
+                                    class="w-full bg-[#080B14] border border-outline-variant rounded-lg px-4 py-3 text-sm focus:border-primary transition-colors resize-none"></textarea>
+                            </div>
+                            <!-- Success message -->
+                            <div id="form-success"
+                                class="hidden mb-4 p-3 rounded-lg bg-primary/10 border border-primary/30 text-primary text-sm text-center">
+                                ✓ Thanks! I'll be in touch soon.
+                            </div>
+                            <button type="submit"
+                                class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary/90 transition-all glow-button flex items-center justify-center gap-2">
+                                Send Message
+                                <span class="material-symbols-outlined text-base" style="font-size:18px">send</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <footer class="border-t border-white/5 py-8 text-center text-on-surface-variant text-sm">
+        <div
+            class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4">
+            <span>© 2025 Mohamed Helmy — Kotlin Multiplatform Engineer</span>
+            <div class="flex gap-6">
+                <a href="https://github.com/helmy2" target="_blank" rel="noopener"
+                    class="hover:text-primary transition-colors">GitHub</a>
+                <a href="https://linkedin.com/in/mo-helmy" target="_blank" rel="noopener"
+                    class="hover:text-primary transition-colors">LinkedIn</a>
+                <a href="assets/MOHAMED-HELMY-Resume.pdf" download
+                    class="hover:text-primary transition-colors">Resume</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══════════════════ SCROLL-TO-TOP ═══════════════════ -->
+    <button id="scroll-top" aria-label="Scroll to top">
+        <span class="material-symbols-outlined" style="font-size:20px">arrow_upward</span>
+    </button>
+
+    <!-- ═══════════════════ SHADER SCRIPT ═══════════════════ -->
+    <script>
+            (function () {
+                const canvas = document.getElementById('shader-canvas');
                 function syncSize() {
-                    const w = canvas.clientWidth || 1280;
-                    const h = canvas.clientHeight || 720;
+                    const w = canvas.clientWidth || window.innerWidth;
+                    const h = canvas.clientHeight || window.innerHeight;
                     if (canvas.width !== w || canvas.height !== h) {
                         canvas.width = w;
                         canvas.height = h;
                     }
                 }
-                if (typeof ResizeObserver !== 'undefined') {
-                    new ResizeObserver(syncSize).observe(canvas);
-                }
+                window.addEventListener('resize', syncSize, { passive: true });
                 syncSize();
-
                 const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
                 if (!gl) return;
+
                 const vs = `attribute vec2 a_position;
 varying vec2 v_texCoord;
 void main() {
@@ -58,46 +959,31 @@ void main() {
 uniform float u_time;
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
-
 varying vec2 v_texCoord;
-
 void main() {
     vec2 uv = v_texCoord;
-    
-    // Normalize mouse
     vec2 mouse = u_mouse / u_resolution;
-    
-    // Create base noise/waves
     float wave = sin(uv.x * 2.5 + u_time * 0.4) * 0.1;
     wave += sin(uv.y * 1.5 - u_time * 0.2) * 0.1;
-    
-    // Deep slate blue base (#0B0F19)
-    vec3 color1 = vec3(0.043, 0.059, 0.098); 
-    // Amethyst purple (#A855F7)
+    vec3 color1 = vec3(0.043, 0.059, 0.098);
     vec3 color2 = vec3(0.659, 0.333, 0.969);
-    
-    // Aurora effect
     float intensity = smoothstep(0.3 + wave, 0.7 + wave, uv.y + sin(uv.x * 4.0 + u_time * 0.8) * 0.15);
-    intensity *= (1.0 - uv.y); // Fade out at top
-    
-    // Mouse proximity glow
+    intensity *= (1.0 - uv.y);
     float dist = distance(uv, mouse);
     float mouseGlow = smoothstep(0.4, 0.0, dist) * 0.25;
-    
     vec3 finalColor = mix(color1, color2, intensity * 0.4);
     finalColor += color2 * mouseGlow;
-    
     gl_FragColor = vec4(finalColor, 1.0);
 }`;
-                function cs(type, src) {
+                function createShader(type, src) {
                     const s = gl.createShader(type);
                     gl.shaderSource(s, src);
                     gl.compileShader(s);
                     return s;
                 }
                 const prog = gl.createProgram();
-                gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
-                gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+                gl.attachShader(prog, createShader(gl.VERTEX_SHADER, vs));
+                gl.attachShader(prog, createShader(gl.FRAGMENT_SHADER, fs));
                 gl.linkProgram(prog);
                 gl.useProgram(prog);
                 const buf = gl.createBuffer();
@@ -109,34 +995,53 @@ void main() {
                 const uTime = gl.getUniformLocation(prog, 'u_time');
                 const uRes = gl.getUniformLocation(prog, 'u_resolution');
                 const uMouse = gl.getUniformLocation(prog, 'u_mouse');
-
-                // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
-                // Shaders that need normalized coords should use: u_mouse / u_resolution.
                 let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
-                window.addEventListener('mousemove', (event) => {
+                window.addEventListener('mousemove', (e) => {
                     const rect = canvas.getBoundingClientRect();
                     if (rect.width && rect.height) {
-                        const nx = (event.clientX - rect.left) / rect.width;
-                        const ny = 1.0 - (event.clientY - rect.top) / rect.height;
-                        mouse.x = nx * canvas.width;
-                        mouse.y = ny * canvas.height;
+                        mouse.x = (e.clientX - rect.left) / rect.width * canvas.width;
+                        mouse.y = (1.0 - (e.clientY - rect.top) / rect.height) * canvas.height;
                     }
-                });
-
+                }, { passive: true });
                 function render(t) {
-                    if (typeof ResizeObserver === 'undefined') syncSize();
+                    syncSize();
                     gl.viewport(0, 0, canvas.width, canvas.height);
-                    if (uTime) gl.uniform1f(uTime, t * 0.001);
-                    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
-                    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+                    gl.uniform1f(uTime, t * 0.001);
+                    gl.uniform2f(uRes, canvas.width, canvas.height);
+                    gl.uniform2f(uMouse, mouse.x, mouse.y);
                     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
                     requestAnimationFrame(render);
                 }
                 render(0);
             })();
-        </script>
-    </div>
-    <!-- STITCH_SHADER_END:ANIMATION_43 -->
+    </script>
+
+    <!-- ═══════════════════ MOUSE PARALLAX ═══════════════════ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('hero-mockups');
+            if (!container) return;
+            const layers = container.querySelectorAll('.parallax-layer');
+            container.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                layers.forEach(layer => {
+                    const factor = parseFloat(layer.dataset.parallaxFactor) || 10;
+                    layer.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+                });
+            });
+            container.addEventListener('mouseleave', () => {
+                layers.forEach(layer => {
+                    layer.style.transform = 'translate(0, 0)';
+                });
+            });
+        });
+    </script>
+
+    <!-- ═══════════════════ MAIN JS ═══════════════════ -->
+    <script src="js/main.js"></script>
+
 </body>
 
 </html>

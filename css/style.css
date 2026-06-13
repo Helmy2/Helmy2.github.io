@@ -1,0 +1,335 @@
+/* ─── Base & Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #0B0F19;
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Glow Button ─────────────────────────────────────────────── */
+.glow-button {
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+    transition: box-shadow 0.3s ease, opacity 0.2s ease;
+}
+.glow-button:hover {
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.55);
+}
+
+/* ─── Glass Card ─────────────────────────────────────────────── */
+.glass-card {
+    background: linear-gradient(145deg, rgba(22, 27, 43, 0.8) 0%, rgba(11, 15, 25, 0.9) 100%);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.glow-amethyst {
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.05);
+    transition: box-shadow 0.5s ease;
+}
+.glow-amethyst:hover {
+    box-shadow: 0 0 60px rgba(168, 85, 247, 0.15);
+}
+
+/* ─── Entrance Animations ─────────────────────────────────────── */
+@keyframes fadeUp {
+    0%   { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+}
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+
+/* ─── Reveal on Scroll ───────────────────────────────────────── */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─── Tech Badge ─────────────────────────────────────────────── */
+.tech-badge {
+    background: #161B2B;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+}
+.tech-badge:hover {
+    border-color: #A855F7;
+    color: #A855F7;
+    background: rgba(168, 85, 247, 0.05);
+}
+
+/* ─── Cert Pill ──────────────────────────────────────────────── */
+.cert-pill {
+    background: #0F1420;
+    border: 1px solid #1E293B;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.cert-pill:hover {
+    transform: scale(1.02);
+    border-color: #A855F7;
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.2);
+}
+
+/* ─── Form Focus ─────────────────────────────────────────────── */
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #A855F7 !important;
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2) !important;
+}
+
+/* ─── Typed Text Cursor ──────────────────────────────────────── */
+#typed-text::after {
+    content: '|';
+    animation: blink 1s step-end infinite;
+    color: #A855F7;
+    margin-left: 2px;
+}
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+}
+
+/* ─── Mobile Nav / Hamburger ─────────────────────────────────── */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+}
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: rgba(11, 15, 25, 0.97);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+    z-index: 49;
+}
+.mobile-menu.open {
+    display: flex;
+}
+.mobile-menu a {
+    padding: 16px 24px;
+    color: #94A3B8;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: color 0.2s, background 0.2s;
+}
+.mobile-menu a:hover {
+    color: #A855F7;
+    background: rgba(168, 85, 247, 0.05);
+}
+@media (max-width: 767px) {
+    .hamburger { display: flex; }
+}
+
+/* ─── Nav Active State ───────────────────────────────────────── */
+nav a.nav-active {
+    color: #A855F7 !important;
+}
+
+/* ─── Scroll-to-Top Button ───────────────────────────────────── */
+#scroll-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #A855F7;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 0 16px rgba(168, 85, 247, 0.45);
+}
+#scroll-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+#scroll-top:hover {
+    background: #b76dff;
+}
+
+/* ─── Section divider accent ─────────────────────────────────── */
+.section-accent {
+    width: 48px;
+    height: 4px;
+    background: linear-gradient(90deg, #A855F7, #6366f1);
+    border-radius: 9999px;
+    margin-bottom: 16px;
+}
+
+/* ─── Experience timeline ──────────────────────────────────── */
+.timeline-node {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #171b26;
+    border: 2px solid #A855F7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    transition: all 0.3s ease;
+}
+.timeline-node .dot-inner {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #A855F7;
+}
+.group:hover .timeline-node {
+    transform: scale(1.25);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+}
+
+/* Timeline line animation */
+.timeline-line {
+    transform-origin: top;
+    transform: scaleY(0);
+    animation: growDown 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes growDown {
+    to { transform: scaleY(1); }
+}
+
+/* Reveal on scroll for experience */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Floating animations for experience cards */
+@keyframes floatSlow {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+.float-slow {
+    animation: floatSlow 6s ease-in-out infinite;
+}
+.float-medium {
+    animation: floatSlow 5s ease-in-out infinite;
+    animation-delay: 1s;
+}
+
+/* ─── Tech stack bubble glows ─────────────────────────────── */
+.glow-text {
+    text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+.bubble-glow {
+    box-shadow: 0 4px 20px rgba(132, 43, 210, 0.15);
+    border: 1px solid rgba(132, 43, 210, 0.3);
+    background: rgba(38, 42, 53, 0.8);
+    backdrop-filter: blur(8px);
+}
+
+/* ─── Social icon buttons ────────────────────────────────────── */
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: #1c1f2a;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.social-btn:hover {
+    background: rgba(168, 85, 247, 0.15);
+    border-color: #A855F7;
+    transform: translateY(-2px);
+}
+.social-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: #94A3B8;
+    transition: fill 0.2s;
+}
+.social-btn:hover svg {
+    fill: #A855F7;
+}
+
+/* ─── Hero mockup floating animations ───────────────────────── */
+@keyframes float1 {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-22px); }
+}
+@keyframes float2 {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-14px); }
+}
+.float-1 {
+    animation: float1 5s ease-in-out infinite;
+}
+.float-2 {
+    animation: float2 6s ease-in-out infinite;
+}
+
+/* ─── Hero section fixed height ────────────────────────────── */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+/* ─── Flipped mockup ───────────────────────────────────────── */
+.mockup-flipped {
+    transform: scaleX(-1);
+}
+
+/* ─── Mouse parallax container ─────────────────────────────── */
+.hero-parallax {
+    perspective: 1200px;
+}
+.parallax-layer {
+    transition: transform 0.15s ease-out;
+    will-change: transform;
+}
