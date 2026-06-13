@@ -89,8 +89,10 @@
 
             <!-- Logo -->
             <a href="#" class="flex items-center gap-3 group">
-                <img src="assets/profile.png" alt="Mohamed Helmy"
-                    class="w-8 h-8 rounded-full object-cover border border-primary/30 group-hover:scale-110 transition-transform">
+                <div
+                    class="w-8 h-8 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center text-xs font-bold text-primary group-hover:scale-110 transition-transform">
+                    MH
+                </div>
                 <span class="font-display text-xl font-bold text-white">Mohamed Helmy</span>
             </a>
 
@@ -151,14 +153,18 @@
 
                         <!-- Headline -->
                         <div class="animate-fade-up delay-200">
-                            <p class="font-mono text-primary uppercase tracking-widest text-sm mb-3">Kotlin
-                                Multiplatform
-                                Engineer</p>
-                            <h1 class="font-display text-display-lg-mobile md:text-display-lg text-white leading-tight">
-                                Building<br>
-                                <span class="text-primary min-h-[120px] md:min-h-[180px] inline-block align-top"
-                                    id="typed-text">Native Android Apps</span>
-                            </h1>
+                            <div class="relative">
+                                <div>
+                                    <p class="font-mono text-primary uppercase tracking-widest text-sm mb-3">Kotlin
+                                        Multiplatform Engineer</p>
+                                    <h1
+                                        class="font-display text-display-lg-mobile md:text-display-lg text-white leading-tight">
+                                        Building<br>
+                                        <span class="text-primary min-h-[120px] md:min-h-[180px] inline-block align-top"
+                                            id="typed-text">Native Android Apps</span>
+                                    </h1>
+                                </div>
+                            </div>
                             <p class="text-on-surface-variant text-body-lg mt-6 max-w-xl">
                                 Offline‑first, MVI, and KMP — delivering high‑performance shared logic across
                                 <strong class="text-on-surface font-medium">Android, iOS, Desktop, and Web.</strong>
@@ -185,16 +191,34 @@
                     <div class="animate-fade-up delay-300 hero-parallax relative flex justify-center items-center h-[500px] lg:h-[650px]"
                         id="hero-mockups">
                         <div class="relative flex items-center justify-center gap-0">
-                            <div class="float-1 parallax-layer z-10 -mr-28 md:-mr-36" data-parallax-factor="20">
-                                <div class="transform -rotate-6 hover:rotate-0 transition-transform duration-500">
-                                    <img src="assets/safar.png" alt="Safar App"
-                                        class="mockup-flipped w-[300px] md:w-[400px] rounded-[2.5rem] shadow-2xl border-8 border-surface-container-highest">
+                            <div class="float-1 parallax-layer z-10 -mr-32 md:-mr-44" data-parallax-factor="20">
+                                <div class="transform -rotate-6 hover:rotate-0 transition-all duration-500">
+                                    <div
+                                        class="mockup-flipped w-[260px] md:w-[380px] rounded-[2rem] shadow-2xl border-8 border-surface-container-highest bg-surface-container flex flex-col items-center justify-center gap-4 p-8 text-center min-h-[260px] transition-all duration-500">
+                                        <div
+                                            class="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/40 to-primary/10 flex items-center justify-center text-2xl font-bold text-primary shadow-lg">
+                                            S
+                                        </div>
+                                        <div>
+                                            <span class="block font-display text-base md:text-lg font-semibold text-white">Safar</span>
+                                            <span class="block text-xs md:text-sm text-on-surface-variant mt-1">Logistics Platform</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="float-2 parallax-layer z-20" data-parallax-factor="-20">
-                                <div class="transform rotate-6 hover:rotate-0 transition-transform duration-500">
-                                    <img src="assets/crosscart.png" alt="CrossCart App"
-                                        class="w-[300px] md:w-[400px] rounded-[2.5rem] shadow-2xl border-8 border-surface-container-lowest">
+                                <div class="transform rotate-6 hover:rotate-0 transition-all duration-500">
+                                    <div
+                                        class="w-[260px] md:w-[380px] rounded-[2rem] shadow-2xl border-8 border-surface-container-lowest bg-surface-container-high flex flex-col items-center justify-center gap-4 p-8 text-center min-h-[260px] transition-all duration-500">
+                                        <div
+                                            class="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/40 to-primary/10 flex items-center justify-center text-2xl font-bold text-primary shadow-lg">
+                                            C
+                                        </div>
+                                        <div>
+                                            <span class="block font-display text-base md:text-lg font-semibold text-white">CrossCart</span>
+                                            <span class="block text-xs md:text-sm text-on-surface-variant mt-1">Multi-vendor Commerce</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -210,16 +234,28 @@
 
             <!-- Hero Title -->
             <div class="mb-16 md:mb-20">
-                <div class="section-accent"></div>
-                <h2 class="font-display text-display-lg-mobile md:text-display-lg text-white leading-tight">
-                    Professional <br>
-                    <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary">Narrative.</span>
-                </h2>
-                <p class="text-on-surface-variant text-body-lg mt-4 max-w-2xl">
-                    A journey through complex system architectures, cross-platform fluidities, and building modern
-                    mobile experiences with Kotlin Multiplatform.
-                </p>
+                <div class="section-reveal" data-reveal-direction="ltr">
+                    <div class="reveal-overlay"></div>
+                    <svg class="reveal-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                        <line class="rl-glow" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="6"
+                            stroke-linecap="round" opacity="0.3" />
+                        <line class="rl-core" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="2"
+                            stroke-linecap="round" />
+                    </svg>
+                    <div class="reveal-content">
+                        <div class="section-accent"></div>
+                        <h2 class="font-display text-display-lg-mobile md:text-display-lg text-white leading-tight">
+                            Professional <br>
+                            <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary">Narrative.</span>
+                        </h2>
+                        <p class="text-on-surface-variant text-body-lg mt-4 max-w-2xl">
+                            A journey through complex system architectures, cross-platform fluidities, and building
+                            modern
+                            mobile experiences with Kotlin Multiplatform.
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <!-- Timeline -->
@@ -312,7 +348,20 @@
         <section id="projects" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
 
             <div class="mb-16 text-center">
-                <h2 class="text-3xl md:text-4xl font-display text-white">Featured Projects</h2>
+                <div class="section-reveal" data-reveal-direction="ltr">
+                    <div class="reveal-overlay"></div>
+                    <svg class="reveal-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                        <line class="rl-glow" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="6"
+                            stroke-linecap="round" opacity="0.3" />
+                        <line class="rl-core" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="2"
+                            stroke-linecap="round" />
+                    </svg>
+                    <div class="reveal-content">
+                        <div class="text-center">
+                            <h2 class="text-3xl md:text-4xl font-display text-white">Featured Projects</h2>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="space-y-section-gap">
@@ -519,17 +568,20 @@
                                 <li class="flex items-start gap-3">
                                     <span class="material-symbols-outlined text-primary mt-0.5"
                                         style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Real-time sensor data ingestion via ESP8266</span>
+                                    <span class="text-on-surface-variant">Real-time sensor data ingestion via
+                                        ESP8266</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <span class="material-symbols-outlined text-primary mt-0.5"
                                         style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Firebase Realtime Database sync &amp; cloud storage</span>
+                                    <span class="text-on-surface-variant">Firebase Realtime Database sync &amp; cloud
+                                        storage</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <span class="material-symbols-outlined text-primary mt-0.5"
                                         style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Native Android dashboard with push alerts</span>
+                                    <span class="text-on-surface-variant">Native Android dashboard with push
+                                        alerts</span>
                                 </li>
                             </ul>
                         </div>
@@ -551,8 +603,7 @@
                             class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                         </div>
                         <div class="text-on-surface-variant flex flex-col items-center">
-                            <span
-                                class="material-symbols-outlined text-[64px] mb-4 text-primary/40">sensors</span>
+                            <span class="material-symbols-outlined text-[64px] mb-4 text-primary/40">sensors</span>
                             <span class="text-xs font-mono text-primary/60 tracking-widest uppercase">Project
                                 Mockup</span>
                         </div>
@@ -566,14 +617,28 @@
         <section id="tech" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
 
             <header class="mb-16 md:mb-20 text-center md:text-left">
-                <div class="section-accent"></div>
-                <h2 class="font-display text-display-lg-mobile md:text-display-lg text-primary glow-text leading-tight">
-                    The Architecture of Native Fluidity
-                </h2>
-                <p class="text-on-surface-variant text-body-lg mt-4 max-w-2xl">
-                    A curated ecosystem designed to maximize code sharing while uncompromising on platform-specific UI
-                    rendering and performance.
-                </p>
+                <div class="section-reveal" data-reveal-direction="ltr">
+                    <div class="reveal-overlay"></div>
+                    <svg class="reveal-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                        <line class="rl-glow" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="6"
+                            stroke-linecap="round" opacity="0.3" />
+                        <line class="rl-core" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="2"
+                            stroke-linecap="round" />
+                    </svg>
+                    <div class="reveal-content">
+                        <div class="text-center md:text-left">
+                            <div class="section-accent"></div>
+                        <h2
+                            class="font-display text-display-lg-mobile md:text-display-lg text-primary glow-text leading-tight">
+                            The Architecture of Native Fluidity
+                        </h2>
+                        <p class="text-on-surface-variant text-body-lg mt-4 max-w-2xl">
+                            A curated ecosystem designed to maximize code sharing while uncompromising on
+                            platform-specific UI
+                            rendering and performance.
+                        </p>
+                    </div>
+                </div>
             </header>
 
             <!-- Core Multiplatform -->
@@ -762,10 +827,21 @@
         <section id="certifications"
             class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
 
-            <div class="reveal-on-scroll mb-10">
-                <div class="section-accent"></div>
-                <h2 class="font-display text-3xl md:text-4xl text-white font-bold">Certifications</h2>
-                <p class="text-on-surface-variant mt-2">Verified expertise &amp; continuous learning</p>
+            <div class="mb-10">
+                <div class="section-reveal" data-reveal-direction="ltr">
+                    <div class="reveal-overlay"></div>
+                    <svg class="reveal-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                        <line class="rl-glow" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="6"
+                            stroke-linecap="round" opacity="0.3" />
+                        <line class="rl-core" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="2"
+                            stroke-linecap="round" />
+                    </svg>
+                    <div class="reveal-content">
+                        <div class="section-accent"></div>
+                        <h2 class="font-display text-3xl md:text-4xl text-white font-bold">Certifications</h2>
+                        <p class="text-on-surface-variant mt-2">Verified expertise &amp; continuous learning</p>
+                    </div>
+                </div>
             </div>
 
             <div class="reveal-on-scroll flex flex-wrap gap-4 justify-center md:justify-start">
@@ -822,9 +898,20 @@
 
                     <!-- Left: Info -->
                     <div class="p-8 md:p-12 bg-surface-container-high/50">
-                        <span class="font-mono text-primary uppercase tracking-widest text-sm">Get in touch</span>
-                        <h3 class="text-3xl font-bold mt-2 mb-6 text-white font-display">Let's build something
-                            exceptional</h3>
+                        <div class="section-reveal" data-reveal-direction="ltr">
+                            <div class="reveal-overlay"></div>
+                            <svg class="reveal-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                                <line class="rl-glow" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7"
+                                    stroke-width="6" stroke-linecap="round" opacity="0.3" />
+                                <line class="rl-core" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7"
+                                    stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                            <div class="reveal-content">
+                                <span class="font-mono text-primary uppercase tracking-widest text-sm">Get in touch</span>
+                                <h3 class="text-3xl font-bold mt-2 mb-6 text-white font-display">Let's build something
+                                    exceptional</h3>
+                            </div>
+                        </div>
                         <div class="space-y-3">
                             <a href="mailto:mohelmy.eng@gmail.com"
                                 class="flex items-center gap-4 p-3 rounded-xl bg-surface-container-low border border-outline-variant hover:border-primary/50 transition-colors">
@@ -915,7 +1002,7 @@
     <footer class="border-t border-white/5 py-8 text-center text-on-surface-variant text-sm">
         <div
             class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4">
-            <span>© 2025 Mohamed Helmy — Kotlin Multiplatform Engineer</span>
+            <span>© 2026 Mohamed Helmy — Kotlin Multiplatform Engineer</span>
             <div class="flex gap-6">
                 <a href="https://github.com/helmy2" target="_blank" rel="noopener"
                     class="hover:text-primary transition-colors">GitHub</a>

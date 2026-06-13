@@ -333,3 +333,32 @@ nav a.nav-active {
     transition: transform 0.15s ease-out;
     will-change: transform;
 }
+
+/* ─── Diagonal Reveal ─────────────────────────────────── */
+.section-reveal {
+    position: relative;
+}
+
+.reveal-overlay {
+    position: absolute;
+    inset: 0;
+    background: #0B0F19;
+    z-index: 2;
+    pointer-events: none;
+    will-change: clip-path;
+}
+
+.reveal-line {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+    overflow: visible;
+}
+
+.reveal-content {
+    position: relative;
+    z-index: 1;
+}

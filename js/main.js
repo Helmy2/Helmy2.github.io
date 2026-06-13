@@ -108,4 +108,59 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 })();
 
+/* ─── Diagonal reveal scroll effect ─────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+    const reveals = document.querySelectorAll('.section-reveal');
+    if (!reveals.length) return;
+
+    const slope = 15;
+    let ticking = false;
+
+    function updateReveals() {
+        const viewH = window.innerHeight;
+        reveals.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const sectionH = rect.height;
+            const dir = section.dataset.revealDirection || 'ltr';
+
+            const offset = viewH * 0.2;
+            const progress = Math.max(0, Math.min(1,
+                (viewH - rect.top + offset) / (sectionH + viewH)
+            ));
+
+            const overlay = section.querySelector('.reveal-overlay');
+            const svgLine = section.querySelector('.reveal-line line.rl-core');
+            const svgGlow = section.querySelector('.reveal-line line.rl-glow');
+
+            let X;
+            if (dir === 'rtl') {
+                X = 100 - progress * (100 + slope);
+                overlay.style.clipPath = `polygon(0% 0%, ${X}% 0%, ${X + slope}% 100%, 0% 100%)`;
+            } else {
+                X = progress * (100 + slope) - slope;
+                overlay.style.clipPath = `polygon(${X}% 0%, 100% 0%, 100% 100%, ${X - slope}% 100%)`;
+            }
+
+            if (svgLine) {
+                svgLine.setAttribute('x1', X);
+                svgLine.setAttribute('x2', dir === 'rtl' ? X + slope : X - slope);
+            }
+            if (svgGlow) {
+                svgGlow.setAttribute('x1', X);
+                svgGlow.setAttribute('x2', dir === 'rtl' ? X + slope : X - slope);
+            }
+        });
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(updateReveals);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    updateReveals();
+});
+
 
