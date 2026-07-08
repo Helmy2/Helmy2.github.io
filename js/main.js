@@ -6,6 +6,7 @@
         'Compose Multiplatform',
         'Offline-First Systems',
         'Real-Time Backends',
+        'Secure Mobile Systems',
     ];
     let phraseIndex = 0;
     let charIndex = 0;
@@ -113,11 +114,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const reveals = document.querySelectorAll('.section-reveal');
     if (!reveals.length) return;
 
-    const slope = 15;
+    const slope = 3;
+    const mobileBreakpoint = 768;
     let ticking = false;
+
+    function isMobile() {
+        return window.innerWidth < mobileBreakpoint;
+    }
 
     function updateReveals() {
         const viewH = window.innerHeight;
+        const mobile = isMobile();
         reveals.forEach(section => {
             const rect = section.getBoundingClientRect();
             const sectionH = rect.height;
@@ -132,28 +139,42 @@ document.addEventListener('DOMContentLoaded', () => {
             const svgLine = section.querySelector('.reveal-line line.rl-core');
             const svgGlow = section.querySelector('.reveal-line line.rl-glow');
 
-            let X;
-            if (dir === 'rtl') {
-                X = 100 - progress * (100 + slope);
-                overlay.style.clipPath = `polygon(0% 0%, ${X}% 0%, ${X + slope}% 100%, 0% 100%)`;
+            if (mobile) {
+                overlay.style.clipPath = `inset(0 0 ${progress * 100}% 0)`;
+                if (svgLine) svgLine.style.display = 'none';
+                if (svgGlow) svgGlow.style.display = 'none';
             } else {
-                X = progress * (100 + slope) - slope;
-                overlay.style.clipPath = `polygon(${X}% 0%, 100% 0%, 100% 100%, ${X - slope}% 100%)`;
-            }
-
-            if (svgLine) {
-                svgLine.setAttribute('x1', X);
-                svgLine.setAttribute('x2', dir === 'rtl' ? X + slope : X - slope);
-            }
-            if (svgGlow) {
-                svgGlow.setAttribute('x1', X);
-                svgGlow.setAttribute('x2', dir === 'rtl' ? X + slope : X - slope);
+                let X;
+                if (dir === 'rtl') {
+                    X = 100 - progress * (100 + slope);
+                    overlay.style.clipPath = `polygon(0% 0%, ${X}% 0%, ${X + slope}% 100%, 0% 100%)`;
+                } else {
+                    X = progress * (100 + slope) - slope;
+                    overlay.style.clipPath = `polygon(${X}% 0%, 100% 0%, 100% 100%, ${X - slope}% 100%)`;
+                }
+                if (svgLine) {
+                    svgLine.style.display = '';
+                    svgLine.setAttribute('x1', X);
+                    svgLine.setAttribute('x2', dir === 'rtl' ? X + slope : X - slope);
+                }
+                if (svgGlow) {
+                    svgGlow.style.display = '';
+                    svgGlow.setAttribute('x1', X);
+                    svgGlow.setAttribute('x2', dir === 'rtl' ? X + slope : X - slope);
+                }
             }
         });
         ticking = false;
     }
 
     window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(updateReveals);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
         if (!ticking) {
             requestAnimationFrame(updateReveals);
             ticking = true;

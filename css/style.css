@@ -315,7 +315,7 @@ nav a.nav-active {
 
 /* ─── Hero section fixed height ────────────────────────────── */
 .hero-section {
-    min-height: 100vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
 }
