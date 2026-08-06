@@ -1,12 +1,12 @@
 /* ─── Typed text animation ─────────────────────────────────────────── */
 (function () {
     const phrases = [
-        'Native Android Apps',
-        'KMP Shared Libraries',
-        'Compose Multiplatform',
-        'Offline-First Systems',
-        'Real-Time Backends',
-        'Secure Mobile Systems',
+        'ANDROID ENGINEER',
+        'KMP DEVELOPER',
+        'COMPOSE ARCHITECT',
+        'OFFLINE-FIRST BUILDER',
+        'SECURITY-MINDED DEV',
+        'CROSS-PLATFORM SHIPPER',
     ];
     let phraseIndex = 0;
     let charIndex = 0;
@@ -16,14 +16,9 @@
 
     function type() {
         const current = phrases[phraseIndex];
-        if (deleting) {
-            el.textContent = current.substring(0, charIndex--);
-        } else {
-            el.textContent = current.substring(0, charIndex++);
-        }
+        el.textContent = deleting ? current.substring(0, charIndex--) : current.substring(0, charIndex++);
 
         let delay = deleting ? 40 : 80;
-
         if (!deleting && charIndex > current.length) {
             delay = 1800;
             deleting = true;
@@ -43,15 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                if (entry.target.classList.contains('reveal-item')) {
-                    entry.target.classList.add('visible');
-                }
+                entry.target.classList.add('visible');
                 obs.unobserve(entry.target);
             }
         });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal-on-scroll, .reveal-item').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
 });
 
 /* ─── Active nav link highlighting ────────────────────────────────── */
@@ -86,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
         menu.classList.toggle('open');
     });
 
-    // Close when a link is clicked
     menu.querySelectorAll('a').forEach(a => {
         a.addEventListener('click', () => {
             btn.classList.remove('open');
@@ -95,93 +86,80 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-/* ─── Scroll-to-top button ─────────────────────────────────────────── */
+/* ─── Scroll-to-top + score HUD ────────────────────────────────────── */
 (function () {
     const btn = document.getElementById('scroll-top');
-    if (!btn) return;
-
-    window.addEventListener('scroll', () => {
-        btn.classList.toggle('visible', window.scrollY > 400);
-    }, { passive: true });
-
-    btn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-})();
-
-/* ─── Diagonal reveal scroll effect ─────────────────────────────── */
-document.addEventListener('DOMContentLoaded', () => {
-    const reveals = document.querySelectorAll('.section-reveal');
-    if (!reveals.length) return;
-
-    const slope = 3;
-    const mobileBreakpoint = 768;
+    const scoreEl = document.getElementById('score-value');
     let ticking = false;
 
-    function isMobile() {
-        return window.innerWidth < mobileBreakpoint;
-    }
-
-    function updateReveals() {
-        const viewH = window.innerHeight;
-        const mobile = isMobile();
-        reveals.forEach(section => {
-            const rect = section.getBoundingClientRect();
-            const sectionH = rect.height;
-            const dir = section.dataset.revealDirection || 'ltr';
-
-            const offset = viewH * 0.2;
-            const progress = Math.max(0, Math.min(1,
-                (viewH - rect.top + offset) / (sectionH + viewH)
-            ));
-
-            const overlay = section.querySelector('.reveal-overlay');
-            const svgLine = section.querySelector('.reveal-line line.rl-core');
-            const svgGlow = section.querySelector('.reveal-line line.rl-glow');
-
-            if (mobile) {
-                overlay.style.clipPath = `inset(0 0 ${progress * 100}% 0)`;
-                if (svgLine) svgLine.style.display = 'none';
-                if (svgGlow) svgGlow.style.display = 'none';
-            } else {
-                let X;
-                if (dir === 'rtl') {
-                    X = 100 - progress * (100 + slope);
-                    overlay.style.clipPath = `polygon(0% 0%, ${X}% 0%, ${X + slope}% 100%, 0% 100%)`;
-                } else {
-                    X = progress * (100 + slope) - slope;
-                    overlay.style.clipPath = `polygon(${X}% 0%, 100% 0%, 100% 100%, ${X - slope}% 100%)`;
-                }
-                if (svgLine) {
-                    svgLine.style.display = '';
-                    svgLine.setAttribute('x1', X);
-                    svgLine.setAttribute('x2', dir === 'rtl' ? X + slope : X - slope);
-                }
-                if (svgGlow) {
-                    svgGlow.style.display = '';
-                    svgGlow.setAttribute('x1', X);
-                    svgGlow.setAttribute('x2', dir === 'rtl' ? X + slope : X - slope);
-                }
-            }
-        });
+    function onScroll() {
+        if (btn) btn.classList.toggle('visible', window.scrollY > 400);
+        if (scoreEl) {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = max > 0 ? window.scrollY / max : 0;
+            scoreEl.textContent = String(Math.floor(pct * 999999)).padStart(6, '0');
+        }
         ticking = false;
     }
 
     window.addEventListener('scroll', () => {
         if (!ticking) {
-            requestAnimationFrame(updateReveals);
+            requestAnimationFrame(onScroll);
             ticking = true;
         }
     }, { passive: true });
 
-    window.addEventListener('resize', () => {
-        if (!ticking) {
-            requestAnimationFrame(updateReveals);
-            ticking = true;
-        }
-    }, { passive: true });
+    if (btn) {
+        btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+    onScroll();
+})();
 
-    updateReveals();
+/* ─── Project filter tabs ──────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('#project-filters .filter-tab');
+    const cards = document.querySelectorAll('#project-grid .cartridge');
+    if (!tabs.length) return;
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('is-active'));
+            tab.classList.add('is-active');
+            const filter = tab.dataset.filter;
+            cards.forEach(card => {
+                const show = filter === 'all' || card.dataset.category === filter;
+                card.classList.toggle('is-hidden', !show);
+            });
+        });
+    });
 });
 
+/* ─── Konami code easter egg ───────────────────────────────────────── */
+(function () {
+    const code = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let progress = 0;
 
+    window.addEventListener('keydown', (e) => {
+        const expected = code[progress];
+        if (e.key.toLowerCase() === expected.toLowerCase()) {
+            progress++;
+            if (progress === code.length) {
+                progress = 0;
+                triggerCheat();
+            }
+        } else {
+            progress = e.key === code[0] ? 1 : 0;
+        }
+    });
+
+    function triggerCheat() {
+        document.body.classList.add('konami-mode');
+        setTimeout(() => document.body.classList.remove('konami-mode'), 1800);
+
+        const toast = document.createElement('div');
+        toast.className = 'konami-toast';
+        toast.textContent = '🎮 CHEAT CODE ACCEPTED: +30 LIVES';
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3500);
+    }
+})();

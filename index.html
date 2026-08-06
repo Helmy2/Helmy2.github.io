@@ -4,18 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Mohamed Helmy | Android & Kotlin Multiplatform Engineer</title>
+    <title>Mohamed Helmy — Press Start | Android &amp; Kotlin Multiplatform Engineer</title>
     <meta name="description"
-        content="Mohamed Helmy — Android & Kotlin Multiplatform Engineer. Jetpack Compose, modular architecture, offline-first sync, and secure mobile systems.">
+        content="Mohamed Helmy — Android &amp; Kotlin Multiplatform Engineer. Jetpack Compose, modular architecture, offline-first sync, and secure mobile systems. Insert coin to continue.">
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%95%B9%EF%B8%8F%3C/text%3E%3C/svg%3E">
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <!-- Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -26,48 +25,34 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: "#A855F7",
-                        "primary-container": "#b76dff",
-                        background: "#0B0F19",
-                        surface: "#161B2B",
-                        "surface-container": "#1c1f2a",
-                        "surface-container-high": "#262a35",
-                        "surface-container-low": "#171b26",
-                        "surface-variant": "#313540",
-                        "on-surface": "#dfe2f1",
-                        "on-surface-variant": "#94A3B8",
-                        outline: "#988d9f",
-                        "outline-variant": "#4d4354",
+                        primary: "#FF2E9A",
+                        secondary: "#29F1FF",
+                        tertiary: "#FFE24C",
+                        xp: "#4CFF7A",
+                        background: "#0B0714",
+                        surface: "#150C29",
+                        "surface-high": "#1D1238",
+                        "surface-low": "#0E081C",
+                        ink: "#ECE7FB",
+                        "ink-muted": "#A79BD1",
+                        line: "#3A2A5C",
                     },
                     borderRadius: {
-                        DEFAULT: "0.25rem",
-                        lg: "0.5rem",
-                        xl: "0.75rem",
+                        DEFAULT: "0px",
+                        lg: "0px",
+                        xl: "0px",
                         full: "9999px",
                     },
                     spacing: {
-                        "margin-mobile": "24px",
+                        "margin-mobile": "20px",
                         "margin-desktop": "64px",
                         "container-max": "1200px",
-                        "stack-sm": "8px",
-                        "stack-md": "16px",
-                        "stack-lg": "32px",
-                        "section-gap": "80px",
-                        gutter: "24px",
+                        "section-gap": "96px",
                     },
                     fontFamily: {
-                        display: ["Hanken Grotesk"],
-                        body: ["Inter"],
-                        mono: ["JetBrains Mono"],
-                    },
-                    fontSize: {
-                        "display-lg": ["72px", { lineHeight: "80px", letterSpacing: "-0.02em", fontWeight: "800" }],
-                        "display-lg-mobile": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "800" }],
-                        "headline-md": ["32px", { lineHeight: "40px", fontWeight: "600" }],
-                        "body-lg": ["18px", { lineHeight: "28px" }],
-                        "body-md": ["16px", { lineHeight: "24px" }],
-                        "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "500" }],
-                        "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }],
+                        pixel: ["'Press Start 2P'", "monospace"],
+                        term: ["'VT323'", "monospace"],
+                        mono: ["'JetBrains Mono'", "monospace"],
                     },
                 },
             },
@@ -75,152 +60,140 @@
     </script>
 </head>
 
-<body class="bg-background text-on-surface antialiased">
+<body class="bg-background text-ink antialiased font-mono">
 
-    <!-- ═══════════════════ SHADER BACKGROUND ═══════════════════ -->
-    <div class="fixed inset-0 w-full h-full -z-10">
-        <canvas id="shader-canvas" style="display:block;width:100%;height:100%"></canvas>
-    </div>
+    <!-- ═══════════════════ CRT OVERLAYS ═══════════════════ -->
+    <div class="crt-vignette"></div>
+    <div class="crt-scanlines"></div>
+    <div class="crt-flicker"></div>
 
-    <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
-    <nav class="w-full top-0 sticky bg-background/80 backdrop-blur-md z-50 border-b border-white/5">
-        <div
-            class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop h-20 flex items-center justify-between">
+    <!-- ═══════════════════ NAV / HUD ═══════════════════ -->
+    <nav class="hud-bar w-full top-0 sticky z-50">
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop h-16 md:h-20 flex items-center justify-between gap-4">
 
             <!-- Logo -->
-            <a href="#" class="flex items-center gap-3 group">
-                <div
-                    class="w-8 h-8 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center text-xs font-bold text-primary group-hover:scale-110 transition-transform">
+            <a href="#hero" class="flex items-center gap-3 group flex-shrink-0">
+                <div class="pixel-corners-sm w-9 h-9 md:w-10 md:h-10 bg-primary/15 border-2 border-primary flex items-center justify-center text-[10px] md:text-xs font-pixel text-primary group-hover:bg-primary group-hover:text-background transition-colors">
                     MH
                 </div>
-                <span class="font-display text-xl font-bold text-white">Mohamed Helmy</span>
+                <span class="hidden sm:inline font-pixel text-[10px] md:text-xs text-ink tracking-wide">HELMY.EXE</span>
             </a>
 
             <!-- Desktop links -->
-            <div class="desktop-nav hidden md:flex gap-8">
-                <a href="#experience"
-                    class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium">Experience</a>
-                <a href="#education"
-                    class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium">Education</a>
-                <a href="#projects"
-                    class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium">Projects</a>
-                <a href="#tech"
-                    class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium">Skills</a>
-                <a href="#certifications"
-                    class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium">Certifications</a>
-                <a href="#contact"
-                    class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium">Contact</a>
+            <div class="desktop-nav hidden lg:flex gap-6 font-pixel text-[9px]">
+                <a href="#experience" class="nav-link text-ink-muted hover:text-secondary transition-colors">EXP</a>
+                <a href="#education" class="nav-link text-ink-muted hover:text-secondary transition-colors">EDU</a>
+                <a href="#projects" class="nav-link text-ink-muted hover:text-secondary transition-colors">PROJECTS</a>
+                <a href="#skills" class="nav-link text-ink-muted hover:text-secondary transition-colors">SKILLS</a>
+                <a href="#achievements" class="nav-link text-ink-muted hover:text-secondary transition-colors">TROPHIES</a>
+                <a href="#contact" class="nav-link text-ink-muted hover:text-secondary transition-colors">CONTACT</a>
             </div>
 
-            <div class="flex items-center gap-4">
-                <a href="#contact"
-                    class="hidden md:inline-flex bg-primary text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-all glow-button">Let's
-                    Talk</a>
-                <!-- Hamburger -->
-                <button id="hamburger-btn" class="hamburger md:hidden" aria-label="Open menu">
+            <div class="flex items-center gap-3 md:gap-5">
+                <!-- Score HUD -->
+                <div class="hidden md:flex items-center gap-1.5 font-term text-lg text-tertiary" title="You've scrolled this many arcade points">
+                    <span class="text-[9px] font-pixel text-ink-muted">SCORE</span>
+                    <span id="score-value">000000</span>
+                </div>
+                <a href="assets/Mohamed_Helmy_Resume.pdf" download
+                    class="hidden md:inline-flex btn-arcade pixel-corners-sm bg-primary text-background px-4 py-2 text-[9px] font-pixel">
+                    LOAD CV
+                </a>
+                <!-- Pause / hamburger -->
+                <button id="hamburger-btn" class="hamburger lg:hidden" aria-label="Open menu">
                     <span></span><span></span><span></span>
                 </button>
             </div>
         </div>
 
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="mobile-menu">
-            <a href="#experience">Experience</a>
-            <a href="#education">Education</a>
-            <a href="#projects">Projects</a>
-            <a href="#tech">Skills</a>
-            <a href="#certifications">Certifications</a>
-            <a href="#contact">Contact</a>
-            <a href="assets/MOHAMED-HELMY-Resume.pdf" download class="!text-primary font-semibold">Download Resume ↓</a>
+        <div id="mobile-menu" class="mobile-menu font-pixel text-[10px]">
+            <a href="#experience">EXP // EXPERIENCE</a>
+            <a href="#education">EDU // EDUCATION</a>
+            <a href="#projects">LVL 03 // PROJECTS</a>
+            <a href="#skills">LVL 04 // SKILLS</a>
+            <a href="#achievements">BONUS // TROPHIES</a>
+            <a href="#contact">FINAL // CONTACT</a>
+            <a href="assets/Mohamed_Helmy_Resume.pdf" download class="!text-primary">LOAD CV ↓</a>
         </div>
     </nav>
+
+    <!-- Marquee ticker -->
+    <div class="marquee border-b border-line bg-surface-low">
+        <div class="marquee-track font-term text-lg text-secondary">
+            <span>★ AVAILABLE FOR CONTRACTS &nbsp;&nbsp;&nbsp; ★ CAIRO, EGYPT — REMOTE OK &nbsp;&nbsp;&nbsp; ★ ANDROID + KOTLIN MULTIPLATFORM &nbsp;&nbsp;&nbsp; ★ JETPACK COMPOSE &nbsp;&nbsp;&nbsp; ★ OFFLINE-FIRST SYNC &nbsp;&nbsp;&nbsp; ★ SECURE MOBILE SYSTEMS &nbsp;&nbsp;&nbsp;</span>
+            <span>★ AVAILABLE FOR CONTRACTS &nbsp;&nbsp;&nbsp; ★ CAIRO, EGYPT — REMOTE OK &nbsp;&nbsp;&nbsp; ★ ANDROID + KOTLIN MULTIPLATFORM &nbsp;&nbsp;&nbsp; ★ JETPACK COMPOSE &nbsp;&nbsp;&nbsp; ★ OFFLINE-FIRST SYNC &nbsp;&nbsp;&nbsp; ★ SECURE MOBILE SYSTEMS &nbsp;&nbsp;&nbsp;</span>
+        </div>
+    </div>
 
     <!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
     <main class="relative z-10">
 
-        <!-- ──────────── HERO ──────────── -->
-        <section class="hero-section">
-            <div class="max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <!-- ──────────── HERO / ATTRACT MODE ──────────── -->
+        <section id="hero" class="hero-section relative overflow-hidden">
+            <div class="retro-grid" aria-hidden="true"></div>
+            <div class="max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop relative z-10 py-16 md:py-0">
+                <div class="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-14 items-center">
 
                     <!-- Left: Text -->
                     <div>
-                        <!-- Status badges -->
-                        <div class="animate-fade-up delay-100 flex flex-wrap gap-3 mb-6">
-                            <span
-                                class="bg-surface/60 backdrop-blur px-4 py-2 rounded-full border border-outline-variant text-sm flex items-center gap-2">
-                                <span class="w-2 h-2 rounded-full bg-primary animate-pulse inline-block"></span>
-                                Available for Contracts
-                            </span>
-                        </div>
+                        <p class="blink font-pixel text-[10px] text-tertiary mb-6">◆ PRESS START ◆</p>
 
-                        <!-- Headline -->
-                        <div class="animate-fade-up delay-200">
-                            <div class="relative">
-                                <div>
-                                    <p class="font-mono text-primary uppercase tracking-widest text-sm mb-3">Android & KMP Engineer</p>
-                                    <h1
-                                        class="font-display text-display-lg-mobile md:text-display-lg text-white leading-tight">
-                                        Building<br>
-                                        <span class="text-primary min-h-[120px] md:min-h-[180px] inline-block align-top"
-                                            id="typed-text">Native Android Apps</span>
-                                    </h1>
-                                </div>
-                            </div>
-                            <p class="text-on-surface-variant text-body-lg mt-6 max-w-xl">
-                                Android and KMP engineer with hands-on experience shipping cross-platform apps
-                                and libraries. Specialized in <strong class="text-on-surface font-medium">Jetpack Compose, modular architecture, offline-first sync, and secure mobile systems.</strong>
-                            </p>
-                        </div>
+                        <h1 class="glitch-text font-pixel text-[26px] leading-[1.6] sm:text-4xl sm:leading-[1.5] md:text-5xl md:leading-[1.4] text-ink"
+                            data-text="MOHAMED HELMY">MOHAMED HELMY</h1>
 
-                        <!-- CTAs -->
-                        <div class="animate-fade-up delay-300 flex flex-wrap gap-4 mt-10">
-                            <a href="#projects"
-                                class="bg-primary text-white px-8 py-3 rounded-xl font-semibold hover:bg-primary/90 transition-all glow-button">
-                                View Work →
+                        <p class="font-term text-2xl md:text-3xl text-secondary mt-4">
+                            &gt; <span id="typed-text">ANDROID ENGINEER</span><span class="term-cursor">_</span>
+                        </p>
+
+                        <p class="text-ink-muted text-sm md:text-base leading-relaxed mt-6 max-w-xl">
+                            Android &amp; Kotlin Multiplatform engineer shipping cross-platform apps and libraries.
+                            Specialized in <span class="text-ink font-medium">Jetpack Compose, modular architecture,
+                            offline-first sync, and secure mobile systems.</span> Currently one save-file into a
+                            career of shipping production Android + KMP apps.
+                        </p>
+
+                        <div class="flex flex-wrap gap-4 mt-10">
+                            <a href="#projects" class="btn-arcade pixel-corners-sm bg-primary text-background px-7 py-3.5 font-pixel text-[10px]">
+                                ▶ START GAME
                             </a>
-                            <a href="assets/MOHAMED-HELMY-Resume.pdf" download
-                                class="border border-on-surface-variant px-8 py-3 rounded-xl hover:bg-surface-variant transition-all font-medium flex items-center gap-2">
-                                <span class="material-symbols-outlined text-base leading-none"
-                                    style="font-size:18px">download</span>
-                                Resume
+                            <a href="assets/Mohamed_Helmy_Resume.pdf" download
+                                class="btn-arcade-outline pixel-corners-sm px-7 py-3.5 font-pixel text-[10px] text-ink flex items-center gap-2">
+                                ⭳ CONTINUE
                             </a>
                         </div>
-
                     </div>
 
-                    <!-- Right: Overlapping mockup screenshots -->
-                    <div class="animate-fade-up delay-300 hero-parallax relative flex justify-center items-center h-[500px] lg:h-[700px]"
-                        id="hero-mockups">
-                        <div class="relative flex items-center justify-center gap-0">
-                            <div class="float-1 parallax-layer z-10 -mr-32 md:-mr-44" data-parallax-factor="20">
-                                <div class="transform -rotate-6 hover:rotate-0 transition-all duration-500">
-                                    <div
-                                        class="mockup-flipped w-[260px] md:w-[380px] rounded-[2rem] shadow-2xl border-8 border-surface-container-highest bg-surface-container flex flex-col items-center justify-center gap-4 p-8 text-center min-h-[300px] md:min-h-[380px] transition-all duration-500">
-                                        <div
-                                            class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/40 to-primary/10 flex items-center justify-center text-3xl font-bold text-primary shadow-lg">
-                                            S
-                                        </div>
-                                        <div>
-                                            <span class="block font-display text-lg md:text-xl font-semibold text-white">Safar</span>
-                                            <span class="block text-sm md:text-base text-on-surface-variant mt-1">Logistics Platform</span>
-                                        </div>
-                                    </div>
-                                </div>
+                    <!-- Right: Character select card -->
+                    <div class="justify-self-center w-full max-w-[340px]">
+                        <div class="pixel-corners bg-surface border-2 border-line p-5 relative glow-primary">
+                            <p class="font-pixel text-[8px] text-tertiary text-center mb-4">— CHARACTER SELECT —</p>
+                            <div class="pixel-corners-sm mx-auto w-24 h-24 bg-surface-high border-2 border-secondary flex items-center justify-center text-5xl">
+                                🤖
                             </div>
-                            <div class="float-2 parallax-layer z-20" data-parallax-factor="-20">
-                                <div class="transform rotate-6 hover:rotate-0 transition-all duration-500">
-                                    <div
-                                        class="w-[260px] md:w-[380px] rounded-[2rem] shadow-2xl border-8 border-surface-container-lowest bg-surface-container-high flex flex-col items-center justify-center gap-4 p-8 text-center min-h-[300px] md:min-h-[380px] transition-all duration-500">
-                                        <div
-                                            class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/40 to-primary/10 flex items-center justify-center text-3xl font-bold text-primary shadow-lg">
-                                            C
-                                        </div>
-                                        <div>
-                                            <span class="block font-display text-lg md:text-xl font-semibold text-white">CrossCart</span>
-                                            <span class="block text-sm md:text-base text-on-surface-variant mt-1">Multi-vendor Commerce</span>
-                                        </div>
-                                    </div>
+                            <p class="font-pixel text-[10px] text-ink text-center mt-4">MOHAMED HELMY</p>
+                            <p class="font-term text-base text-ink-muted text-center mb-4">LV. 3 · ANDROID/KMP CLASS</p>
+
+                            <div class="space-y-2.5">
+                                <div class="stat-row">
+                                    <span class="font-pixel text-[7px] text-ink-muted">COMPOSE</span>
+                                    <div class="stat-bar"><div class="stat-fill bg-primary" style="width:95%"></div></div>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="font-pixel text-[7px] text-ink-muted">KMP</span>
+                                    <div class="stat-bar"><div class="stat-fill bg-secondary" style="width:92%"></div></div>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="font-pixel text-[7px] text-ink-muted">ARCHITECTURE</span>
+                                    <div class="stat-bar"><div class="stat-fill bg-tertiary" style="width:90%"></div></div>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="font-pixel text-[7px] text-ink-muted">SECURITY</span>
+                                    <div class="stat-bar"><div class="stat-fill bg-xp" style="width:85%"></div></div>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="font-pixel text-[7px] text-ink-muted">BACKEND</span>
+                                    <div class="stat-bar"><div class="stat-fill bg-primary" style="width:80%"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -230,173 +203,107 @@
             </div>
         </section>
 
-        <!-- ──────────── EXPERIENCE ──────────── -->
-        <section id="experience"
-            class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
-
-            <!-- Hero Title -->
-            <div class="mb-16 md:mb-20">
-                <div class="section-reveal" data-reveal-direction="ltr">
-                    <div class="reveal-overlay"></div>
-                    <svg class="reveal-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                        <line class="rl-glow" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="6"
-                            stroke-linecap="round" opacity="0.3" />
-                        <line class="rl-core" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="2"
-                            stroke-linecap="round" />
-                    </svg>
-                    <div class="reveal-content">
-                        <div class="section-accent"></div>
-                        <h2 class="font-display text-display-lg-mobile md:text-display-lg text-white leading-tight">
-                            Professional <br>
-                            <span
-                                class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary">Narrative.</span>
-                        </h2>
-                        <p class="text-on-surface-variant text-body-lg mt-4 max-w-2xl">
-                            A journey through complex system architectures, cross-platform fluidities, and building
-                            modern
-                            mobile experiences with Kotlin Multiplatform.
-                        </p>
-                    </div>
-                </div>
+        <!-- ──────────── LEVEL 01 — EXPERIENCE ──────────── -->
+        <section id="experience" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
+            <div class="level-header reveal-item">
+                <p class="font-pixel text-[10px] text-tertiary mb-3">LEVEL 01</p>
+                <h2 class="font-pixel text-xl md:text-3xl text-ink leading-relaxed">QUEST LOG // EXPERIENCE</h2>
+                <p class="text-ink-muted text-sm mt-4 max-w-2xl">Every job is a quest. Here's the XP earned along the way.</p>
             </div>
 
-            <!-- Timeline -->
-            <div class="relative">
-                <!-- Desktop timeline line -->
-                <div
-                    class="absolute left-[39px] md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-outline-variant/30 to-transparent timeline-line hidden md:block">
-                </div>
-                <!-- Mobile timeline line -->
-                <div
-                    class="absolute left-[39px] top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-outline-variant/30 to-transparent timeline-line block md:hidden">
-                </div>
+            <div class="space-y-10 mt-14">
 
-                <div class="space-y-16 md:space-y-section-gap relative z-10">
-
-                    <!-- ── Entry 1: Areeb Technology ── -->
-                    <div class="relative flex flex-col md:flex-row items-start md:items-center group reveal-item"
-                        style="transition-delay: 0.2s;">
-                        <!-- Timeline node -->
-                        <div
-                            class="absolute left-0 md:left-1/2 w-8 h-8 rounded-full bg-surface-container-low border-2 border-primary flex items-center justify-center z-20 md:-translate-x-1/2 timeline-node">
-                            <div class="dot-inner"></div>
+                <!-- Quest 1 -->
+                <div class="pixel-corners bg-surface border-2 border-line p-6 md:p-8 reveal-item glow-primary">
+                    <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+                        <div>
+                            <span class="quest-tag bg-primary/15 text-primary border border-primary">MAIN QUEST · ACTIVE</span>
+                            <h3 class="font-pixel text-sm md:text-base text-ink mt-3">AREEB TECHNOLOGY</h3>
+                            <p class="text-ink-muted text-sm mt-1">Android Software Engineer</p>
                         </div>
-                        <!-- Meta (left) -->
-                        <div class="md:w-1/2 md:pr-16 pl-12 md:pl-0 text-left md:text-right mb-2 md:mb-0">
-                            <div class="font-mono text-primary text-sm uppercase tracking-wider mb-2">07/2025 – Present
-                            </div>
-                            <h3 class="text-2xl font-bold text-white">Areeb Technology</h3>
-                            <p class="text-on-surface-variant italic">Android Software Engineer</p>
-                        </div>
-                        <!-- Card (right) -->
-                        <div class="md:w-1/2 md:pl-16 pl-12 w-full float-slow">
-                            <div
-                                class="glass-card rounded-xl p-8 glow-amethyst transition-transform duration-500 hover:-translate-y-2">
-                                <ul class="text-on-surface-variant text-sm leading-relaxed mb-6 space-y-2 list-disc list-inside">
-                                    <li>Led KMP research and validated shared logic with native UI integration under Clean Architecture, building a production-ready cross-platform blueprint.</li>
-                                    <li>Refactored a monolithic codebase into 24 modules, cutting build time 30% and allowing independent team releases.</li>
-                                    <li>Modernized engineering foundations by migrating to Gradle Version Catalogs and adopting Navigation 3, cutting build times by 15%.</li>
-                                    <li>Replaced NDK/JNI cryptography with Google Tink and redesigned encrypted DataStore, strengthening security.</li>
-                                    <li>Migrated networking from Retrofit to Ktor, reducing API latency by 20% and adding type-safe localization for faster feature rollout.</li>
-                                    <li>Owned critical Boxooo and Cadda user flows, including onboarding, KYC, signup, biometrics, password recovery, notifications, and RTL fixes.</li>
-                                </ul>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Kotlin Multiplatform</span>
-                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Jetpack Compose</span>
-                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Ktor</span>
-                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Google Tink</span>
-                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Navigation 3</span>
-                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Gradle Version Catalogs</span>
-                                </div>
-                            </div>
-                        </div>
+                        <span class="font-term text-xl text-secondary">07/2025 → NOW</span>
                     </div>
-
-                    <!-- ── Entry 2: Freelance ERP/POS ── -->
-                    <div class="relative flex flex-col md:flex-row-reverse items-start md:items-center group reveal-item"
-                        style="transition-delay: 0.3s;">
-                        <!-- Timeline node -->
-                        <div
-                            class="absolute left-0 md:left-1/2 w-8 h-8 rounded-full bg-surface-container-low border-2 border-primary flex items-center justify-center z-20 md:-translate-x-1/2 timeline-node">
-                            <div class="dot-inner"></div>
-                        </div>
-                        <!-- Meta (right) -->
-                        <div class="md:w-1/2 md:pl-16 pl-12 text-left mb-2 md:mb-0">
-                            <div class="font-mono text-primary text-sm uppercase tracking-wider mb-2">02/2025 – 07/2025
-                            </div>
-                            <h3 class="text-2xl font-bold text-white">Freelance POS &amp; ERP Platform</h3>
-                            <p class="text-on-surface-variant italic">Kotlin Multiplatform</p>
-                        </div>
-                        <!-- Card (left) -->
-                        <div class="md:w-1/2 md:pr-16 pl-12 w-full float-medium">
-                            <div
-                                class="glass-card rounded-xl p-8 glow-amethyst transition-transform duration-500 hover:-translate-y-2">
-                                <p class="text-on-surface-variant text-sm leading-relaxed mb-6">
-                                    Built a production-ready offline-first POS and ERP platform using Kotlin Multiplatform for Android tablets and Desktop.
-                                </p>
-                                <ul class="text-on-surface-variant text-sm leading-relaxed mb-6 space-y-2 list-disc list-inside">
-                                    <li>Designed Room + Supabase synchronization to support reliable data flow during connectivity drops.</li>
-                                    <li>Implemented secure RPC-based stock transfer and inventory workflows to maintain data consistency.</li>
-                                </ul>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Kotlin Multiplatform</span>
-                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Room</span>
-                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Supabase</span>
-                                    <span class="tech-badge text-xs px-3 py-1 rounded-full">Compose Multiplatform</span>
-                                </div>
-                            </div>
-                        </div>
+                    <ul class="space-y-2 text-sm text-ink-muted leading-relaxed mb-6">
+                        <li>▸ Led KMP research and validated shared logic with native UI integration under Clean Architecture, building a production-ready cross-platform blueprint adopted by multiple teams.</li>
+                        <li>▸ Refactored a monolithic codebase into 24 independent modules, enabling parallel team releases with zero merge conflicts.</li>
+                        <li>▸ Modernized engineering foundations by migrating to Gradle Version Catalogs and adopting Navigation 3.</li>
+                        <li>▸ Strengthened app security by replacing legacy NDK/JNI cryptography with Google Tink and redesigning encrypted DataStore.</li>
+                        <li>▸ Migrated the networking layer from Retrofit to Ktor, improving type-safe serialization.</li>
+                        <li>▸ Owned critical user flows for the Boxooo and Cadaa apps: onboarding, KYC, biometrics, password recovery, push notifications, and full RTL/Arabic localization.</li>
+                    </ul>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="xp-chip">-30% BUILD TIME</span>
+                        <span class="xp-chip">-15% BUILD TIME (P2)</span>
+                        <span class="xp-chip">-20% API LATENCY</span>
+                        <span class="xp-chip">24 MODULES SHIPPED</span>
                     </div>
-
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tech-tag">Kotlin Multiplatform</span>
+                        <span class="tech-tag">Jetpack Compose</span>
+                        <span class="tech-tag">Ktor</span>
+                        <span class="tech-tag">Google Tink</span>
+                        <span class="tech-tag">Navigation 3</span>
+                        <span class="tech-tag">Gradle Version Catalogs</span>
+                    </div>
                 </div>
+
+                <!-- Quest 2 -->
+                <div class="pixel-corners bg-surface border-2 border-line p-6 md:p-8 reveal-item glow-primary">
+                    <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+                        <div>
+                            <span class="quest-tag bg-secondary/15 text-secondary border border-secondary">SIDE QUEST · COMPLETE</span>
+                            <h3 class="font-pixel text-sm md:text-base text-ink mt-3">FREELANCE — POS &amp; ERP PLATFORM</h3>
+                            <p class="text-ink-muted text-sm mt-1">Kotlin Multiplatform Engineer</p>
+                        </div>
+                        <span class="font-term text-xl text-secondary">02/2025 → 07/2025</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-ink-muted leading-relaxed mb-6">
+                        <li>▸ Enabled real-time inventory management across Android tablets and Desktop with an offline-first POS and ERP platform.</li>
+                        <li>▸ Kept data flowing reliably through connectivity drops with automatic conflict resolution via Room and Supabase sync.</li>
+                        <li>▸ Implemented secure RPC-based stock transfer workflows to maintain consistency across multiple warehouse locations.</li>
+                        <li>▸ Established CI/CD pipelines with automated testing and deployment.</li>
+                    </ul>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="xp-chip">OFFLINE-FIRST SYNC</span>
+                        <span class="xp-chip">MULTI-WAREHOUSE RPC</span>
+                        <span class="xp-chip">CI/CD AUTOMATED</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tech-tag">Kotlin Multiplatform</span>
+                        <span class="tech-tag">Room</span>
+                        <span class="tech-tag">Supabase</span>
+                        <span class="tech-tag">Compose Multiplatform</span>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <!-- ──────────── EDUCATION ──────────── -->
-        <section id="education"
-            class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
-
-            <div class="mb-16 md:mb-20">
-                <div class="section-reveal" data-reveal-direction="ltr">
-                    <div class="reveal-overlay"></div>
-                    <svg class="reveal-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                        <line class="rl-glow" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="6"
-                            stroke-linecap="round" opacity="0.3" />
-                        <line class="rl-core" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="2"
-                            stroke-linecap="round" />
-                    </svg>
-                    <div class="reveal-content">
-                        <div class="section-accent"></div>
-                        <h2 class="font-display text-display-lg-mobile md:text-display-lg text-white leading-tight">
-                            Education
-                        </h2>
-                        <p class="text-on-surface-variant text-body-lg mt-4 max-w-2xl">
-                            Academic foundation in computer science with a focus on machine learning and software engineering.
-                        </p>
-                    </div>
-                </div>
+        <!-- ──────────── LEVEL 02 — EDUCATION ──────────── -->
+        <section id="education" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
+            <div class="level-header reveal-item">
+                <p class="font-pixel text-[10px] text-tertiary mb-3">LEVEL 02</p>
+                <h2 class="font-pixel text-xl md:text-3xl text-ink leading-relaxed">TUTORIAL STAGE // EDUCATION</h2>
             </div>
 
-            <div class="max-w-3xl mx-auto reveal-item">
-                <div class="glass-card rounded-xl p-8 glow-amethyst">
+            <div class="max-w-3xl mx-auto mt-14 reveal-item">
+                <div class="pixel-corners bg-surface border-2 border-line p-6 md:p-8 glow-primary">
                     <div class="flex flex-col md:flex-row gap-6 items-start">
-                        <div class="flex-shrink-0">
-                            <div
-                                class="w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-primary" style="font-size:32px">school</span>
-                            </div>
+                        <div class="pixel-corners-sm w-16 h-16 bg-tertiary/10 border-2 border-tertiary flex items-center justify-center text-3xl flex-shrink-0">
+                            🎓
                         </div>
                         <div class="flex-1">
-                            <div class="font-mono text-primary text-sm uppercase tracking-wider mb-1">09/2019 – 06/2023</div>
-                            <h3 class="text-2xl font-bold text-white">B.Sc. in Computer Science</h3>
-                            <p class="text-on-surface-variant text-lg mb-3">Benha University</p>
-                            <p class="text-on-surface-variant text-sm leading-relaxed">
-                                GPA: 3.24 — Researched and engineered a machine learning solution to predict diabetes, analyzing health metrics datasets and evaluating classification models.
+                            <span class="quest-tag bg-tertiary/15 text-tertiary border border-tertiary">TUTORIAL COMPLETE</span>
+                            <h3 class="font-pixel text-sm md:text-base text-ink mt-3">B.SC. IN COMPUTER SCIENCE</h3>
+                            <p class="text-ink-muted mt-2">Benha University · 09/2019 – 06/2023 · GPA 3.24/4.0</p>
+                            <p class="text-ink-muted text-sm leading-relaxed mt-3">
+                                Engineered a machine learning solution to predict diabetes using health metrics and
+                                classification models — the first boss fight before entering the industry.
                             </p>
                             <div class="flex flex-wrap gap-2 mt-4">
-                                <span class="tech-badge text-xs px-3 py-1 rounded-full">Machine Learning</span>
-                                <span class="tech-badge text-xs px-3 py-1 rounded-full">Python</span>
-                                <span class="tech-badge text-xs px-3 py-1 rounded-full">Data Analysis</span>
+                                <span class="tech-tag">Machine Learning</span>
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Data Analysis</span>
                             </div>
                         </div>
                     </div>
@@ -404,730 +311,444 @@
             </div>
         </section>
 
-        <!-- ──────────── PROJECTS ──────────── -->
+        <!-- ──────────── LEVEL 03 — PROJECTS ──────────── -->
         <section id="projects" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
-
-            <div class="mb-16 text-center">
-                <div class="section-reveal" data-reveal-direction="ltr">
-                    <div class="reveal-overlay"></div>
-                    <svg class="reveal-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                        <line class="rl-glow" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="6"
-                            stroke-linecap="round" opacity="0.3" />
-                        <line class="rl-core" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="2"
-                            stroke-linecap="round" />
-                    </svg>
-                    <div class="reveal-content">
-                        <div class="text-center">
-                            <h2 class="text-3xl md:text-4xl font-display text-white">Featured Projects</h2>
-                        </div>
-                    </div>
-                </div>
+            <div class="level-header reveal-item">
+                <p class="font-pixel text-[10px] text-tertiary mb-3">LEVEL 03</p>
+                <h2 class="font-pixel text-xl md:text-3xl text-ink leading-relaxed">PROJECT SELECT</h2>
+                <p class="text-ink-muted text-sm mt-4 max-w-2xl">Choose your cartridge. Newest releases first — filter by genre.</p>
             </div>
 
-            <div class="space-y-section-gap">
+            <!-- Filter tabs -->
+            <div class="flex flex-wrap gap-2 mt-8 reveal-item" id="project-filters">
+                <button class="filter-tab is-active" data-filter="all">ALL</button>
+                <button class="filter-tab" data-filter="kmp">KMP &amp; CROSS-PLATFORM</button>
+                <button class="filter-tab" data-filter="android">ANDROID</button>
+                <button class="filter-tab" data-filter="ai">AI &amp; GAME DEV</button>
+                <button class="filter-tab" data-filter="iot">IOT</button>
+            </div>
 
-                <!-- Safar Logistics Platform -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center reveal-item">
-                    <div
-                        class="order-2 lg:order-1 bg-surface-container-low aspect-square lg:aspect-[4/3] flex items-center justify-center p-8 border border-outline-variant relative overflow-hidden group rounded-xl border-primary/20 shadow-2xl">
-                        <div
-                            class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        </div>
-                        <div class="text-on-surface-variant flex flex-col items-center">
-                            <span
-                                class="material-symbols-outlined text-[64px] mb-4 text-primary/40">local_shipping</span>
-                            <span class="text-xs font-mono text-primary/60 tracking-widest uppercase">Project
-                                Mockup</span>
-                        </div>
+            <!-- Cartridge grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10" id="project-grid">
+
+                <div class="cartridge reveal-item" data-category="kmp">
+                    <div class="cartridge-label bg-secondary">KMP</div>
+                    <h3 class="cartridge-title">expense-tracker</h3>
+                    <p class="cartridge-desc">Cross-platform expense tracker: dashboard, budgets, recurring transactions, cross-tab sync, Clean Architecture. Built using Dream, the AI app-generation flow below.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">Clean Arch</span><span class="tech-tag-sm">Compose</span><span class="tech-tag-sm">via Dream</span>
                     </div>
-                    <div class="order-1 lg:order-2 space-y-8">
-                        <div>
-                            <p class="text-sm font-mono text-primary uppercase tracking-widest mb-4">Freelance Contract,
-                                Oct 2025 – Apr 2026</p>
-                            <h3 class="text-white leading-tight text-3xl font-display">Safar, Delivery Operations Platform</h3>
-                        </div>
-                        <p class="text-body-lg text-on-surface-variant">Built a scalable logistics platform for Android and Desktop using Compose Multiplatform and MVI.
-                        </p>
-                        <div>
-                            <h4
-                                class="text-sm font-mono text-white uppercase tracking-widest mb-4 flex items-center gap-2">
-                                <span class="w-8 h-px bg-primary"></span> Key Achievements
-                            </h4>
-                            <ul class="space-y-4">
-                                <li class="flex items-start gap-3">
-                                    <span class="material-symbols-outlined text-primary mt-0.5"
-                                        style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Supabase Edge Functions for payroll logic</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="material-symbols-outlined text-primary mt-0.5"
-                                        style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Row-Level Security for access control</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="material-symbols-outlined text-primary mt-0.5"
-                                        style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Reduced manual ops overhead by 90%</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-wrap gap-2 pt-4">
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Compose Multiplatform</span>
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">MVI</span>
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Supabase</span>
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Edge Functions</span>
-                        </div>
+                    <a href="https://github.com/Helmy2/expense-tracker" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
+                </div>
+
+                <div class="cartridge reveal-item" data-category="ai">
+                    <div class="cartridge-label bg-primary">AI FLOW</div>
+                    <h3 class="cartridge-title">Dream</h3>
+                    <p class="cartridge-desc">An AI flow that turns a prompt into a working app — scaffolding architecture, screens &amp; logic end-to-end. expense-tracker (above) was generated straight out of Dream.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">AI</span><span class="tech-tag-sm">Code Gen</span><span class="tech-tag-sm">Automation</span>
+                    </div>
+                    <a href="https://github.com/Helmy2/Dream" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
+                </div>
+
+                <div class="cartridge reveal-item" data-category="kmp">
+                    <div class="cartridge-label bg-primary">KMP</div>
+                    <h3 class="cartridge-title">Mudawama</h3>
+                    <p class="cartridge-desc">Offline-first Muslim habit tracker: prayer tracking, Quran progress, Athkar/Tasbeeh counter, Qibla compass.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">Offline-first</span><span class="tech-tag-sm">SwiftUI</span>
+                    </div>
+                    <a href="https://github.com/Helmy2/Mudawama" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
+                </div>
+
+                <div class="cartridge reveal-item" data-category="kmp">
+                    <div class="cartridge-label bg-xp">KMP</div>
+                    <h3 class="cartridge-title">Aura</h3>
+                    <p class="cartridge-desc">Wallpaper &amp; video discovery app powered by Pexels. MVI, infinite scroll, favorites, video playback — Compose + SwiftUI.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">MVI</span><span class="tech-tag-sm">SwiftUI</span>
+                    </div>
+                    <a href="https://github.com/Helmy2/Aura" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
+                </div>
+
+                <div class="cartridge reveal-item" data-category="kmp">
+                    <div class="cartridge-label bg-secondary">KMP</div>
+                    <h3 class="cartridge-title">hijri-date-picker</h3>
+                    <p class="cartridge-desc">Published KMP Hijri calendar picker for Android, iOS &amp; Desktop with timezone-aware rendering. Live on Maven Central.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">KMP</span><span class="tech-tag-sm">Android</span><span class="tech-tag-sm">iOS</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <a href="https://github.com/Helmy2/hijri-date-picker" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
+                        <a href="https://central.sonatype.com/artifact/io.github.helmy2/hijri-date-picker" target="_blank" rel="noopener" class="cartridge-link">MAVEN ↗</a>
                     </div>
                 </div>
 
-                <!-- Freelance ERP & POS System -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center reveal-item">
-                    <div class="space-y-8">
-                        <div>
-                            <p class="text-sm font-mono text-primary uppercase tracking-widest mb-4">Freelance Contract,
-                                May 2025 – Sep 2025</p>
-                            <h3 class="text-white leading-tight text-3xl font-display">Freelance POS &amp; ERP Platform
-                            </h3>
-                        </div>
-                        <p class="text-body-lg text-on-surface-variant">Built a production-ready offline-first POS and ERP platform using Kotlin Multiplatform for Android tablets and Desktop.</p>
-                        <div>
-                            <h4
-                                class="text-sm font-mono text-white uppercase tracking-widest mb-4 flex items-center gap-2">
-                                <span class="w-8 h-px bg-primary"></span> Key Achievements
-                            </h4>
-                            <ul class="space-y-4">
-                                <li class="flex items-start gap-3">
-                                    <span class="material-symbols-outlined text-primary mt-0.5"
-                                        style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Room + Supabase sync for offline-first data flow</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="material-symbols-outlined text-primary mt-0.5"
-                                        style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Secure RPC-based stock transfer workflows</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="material-symbols-outlined text-primary mt-0.5"
-                                        style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Android tablet &amp; Desktop support</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-wrap gap-2 pt-4">
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">KMP</span>
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Room</span>
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Supabase</span>
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Compose Multiplatform</span>
-                        </div>
+                <div class="cartridge reveal-item" data-category="android">
+                    <div class="cartridge-label bg-secondary">ANDROID</div>
+                    <h3 class="cartridge-title">Clarity</h3>
+                    <p class="cartridge-desc">Demonstrates custom Lint rules and modular architecture with Clean Architecture principles.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">Lint</span><span class="tech-tag-sm">Modularization</span>
                     </div>
-                    <div
-                        class="bg-surface-container-low aspect-square lg:aspect-[4/3] flex items-center justify-center p-8 border border-outline-variant relative overflow-hidden group rounded-xl border-primary/20 shadow-2xl">
-                        <div
-                            class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        </div>
-                        <div class="text-on-surface-variant flex flex-col items-center">
-                            <span
-                                class="material-symbols-outlined text-[64px] mb-4 text-primary/40">point_of_sale</span>
-                            <span class="text-xs font-mono text-primary/60 tracking-widest uppercase">Project
-                                Mockup</span>
-                        </div>
-                    </div>
+                    <a href="https://github.com/Helmy2/Clarity" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
                 </div>
 
-                <!-- CrossCart -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center reveal-item">
-                    <div
-                        class="order-2 lg:order-1 bg-surface-container-low aspect-square lg:aspect-[4/3] flex items-center justify-center p-8 border border-outline-variant relative overflow-hidden group rounded-xl border-primary/20 shadow-2xl">
-                        <div
-                            class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        </div>
-                        <div class="text-on-surface-variant flex flex-col items-center">
-                            <span
-                                class="material-symbols-outlined text-[64px] mb-4 text-primary/40">shopping_cart</span>
-                            <span class="text-xs font-mono text-primary/60 tracking-widest uppercase">Project
-                                Mockup</span>
-                        </div>
+                <div class="cartridge reveal-item" data-category="android">
+                    <div class="cartridge-label bg-xp">ANDROID</div>
+                    <h3 class="cartridge-title">WhatNowNews</h3>
+                    <p class="cartridge-desc">News aggregation app with real-time updates and Clean Architecture, built in Compose.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">Compose</span><span class="tech-tag-sm">Clean Arch</span>
                     </div>
-                    <div class="order-1 lg:order-2 space-y-8">
-                        <div>
-                            <p class="text-sm font-mono text-primary uppercase tracking-widest mb-4">Personal Project</p>
-                            <h3 class="text-white leading-tight text-3xl font-display">CrossCart</h3>
-                        </div>
-                        <p class="text-body-lg text-on-surface-variant">Built a single-codebase app for Android, iOS, and Desktop using Kotlin Multiplatform. Implemented clean MVI architecture and real-time data synchronization with Supabase.</p>
-                        <div>
-                            <h4
-                                class="text-sm font-mono text-white uppercase tracking-widest mb-4 flex items-center gap-2">
-                                <span class="w-8 h-px bg-primary"></span> Key Achievements
-                            </h4>
-                            <ul class="space-y-4">
-                                <li class="flex items-start gap-3">
-                                    <span class="material-symbols-outlined text-primary mt-0.5"
-                                        style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Single codebase for Android, iOS, Desktop</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="material-symbols-outlined text-primary mt-0.5"
-                                        style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Clean MVI architecture</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="material-symbols-outlined text-primary mt-0.5"
-                                        style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Real-time data sync with Supabase</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-wrap gap-2 pt-4">
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Compose
-                                Multiplatform</span>
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">KMP</span>
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">MVI</span>
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Supabase</span>
-                        </div>
-                    </div>
+                    <a href="https://github.com/Helmy2/WhatNowNews" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
                 </div>
 
-                <!-- hijri-date-picker -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center reveal-item">
-                    <div class="space-y-8">
-                        <div>
-                            <p class="text-sm font-mono text-primary uppercase tracking-widest mb-4">KMP Library, 2025</p>
-                            <h3 class="text-white leading-tight text-3xl font-display">hijri-date-picker</h3>
-                        </div>
-                        <p class="text-body-lg text-on-surface-variant">A production-ready KMP Hijri calendar picker supporting Android, iOS, and Desktop. Shipped as a reusable cross-platform library with platform-consistent behavior.</p>
-                        <div>
-                            <h4
-                                class="text-sm font-mono text-white uppercase tracking-widest mb-4 flex items-center gap-2">
-                                <span class="w-8 h-px bg-primary"></span> Key Highlights
-                            </h4>
-                            <ul class="space-y-4">
-                                <li class="flex items-start gap-3">
-                                    <span class="material-symbols-outlined text-primary mt-0.5"
-                                        style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Published KMP library on GitHub</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="material-symbols-outlined text-primary mt-0.5"
-                                        style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Android, iOS, and Desktop support</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="material-symbols-outlined text-primary mt-0.5"
-                                        style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Production-ready and reusable</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-wrap gap-2 pt-4">
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">KMP</span>
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Android</span>
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">iOS</span>
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Desktop</span>
-                        </div>
+                <div class="cartridge reveal-item" data-category="kmp">
+                    <div class="cartridge-label bg-primary">KMP</div>
+                    <h3 class="cartridge-title">Safar</h3>
+                    <p class="cartridge-desc">Delivery ops platform digitizing dispatch, invoicing &amp; payroll. Supabase Edge Functions + Row-Level Security. -90% manual overhead.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">Compose MP</span><span class="tech-tag-sm">Supabase</span><span class="tech-tag-sm">MVI</span>
                     </div>
-                    <div
-                        class="bg-surface-container-low aspect-square lg:aspect-[4/3] flex items-center justify-center p-8 border border-outline-variant relative overflow-hidden group rounded-xl border-primary/20 shadow-2xl">
-                        <div
-                            class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        </div>
-                        <div class="text-on-surface-variant flex flex-col items-center">
-                            <span
-                                class="material-symbols-outlined text-[64px] mb-4 text-primary/40">calendar_month</span>
-                            <span class="text-xs font-mono text-primary/60 tracking-widest uppercase">Library</span>
-                        </div>
-                    </div>
+                    <a href="https://github.com/Helmy2" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
                 </div>
 
-                <!-- IoT Environmental Monitor -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center reveal-item">
-                    <div
-                        class="order-2 lg:order-1 bg-surface-container-low aspect-square lg:aspect-[4/3] flex items-center justify-center p-8 border border-outline-variant relative overflow-hidden group rounded-xl border-primary/20 shadow-2xl">
-                        <div
-                            class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        </div>
-                        <div class="text-on-surface-variant flex flex-col items-center">
-                            <span
-                                class="material-symbols-outlined text-[64px] mb-4 text-primary/40">sensors</span>
-                            <span class="text-xs font-mono text-primary/60 tracking-widest uppercase">Project
-                                Mockup</span>
-                        </div>
+                <div class="cartridge reveal-item" data-category="android">
+                    <div class="cartridge-label bg-tertiary">ANDROID</div>
+                    <h3 class="cartridge-title">PixelBit</h3>
+                    <p class="cartridge-desc">E-commerce app: onboarding, auth, browsing, cart, checkout &amp; profile — built with Navigation 3.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">Compose</span><span class="tech-tag-sm">Nav 3</span>
                     </div>
-                    <div class="order-1 lg:order-2 space-y-8">
-                        <div>
-                            <p class="text-sm font-mono text-primary uppercase tracking-widest mb-4">Personal Project,
-                                2025</p>
-                            <h3 class="text-white leading-tight text-3xl font-display">IoT Environmental Monitor</h3>
-                        </div>
-                        <p class="text-body-lg text-on-surface-variant">Engineered a full-stack IoT solution where an
-                            ESP8266 sensor streams real-time environmental data to Firebase, displayed in a native
-                            Android app with a live dashboard and push notifications.</p>
-                        <div>
-                            <h4
-                                class="text-sm font-mono text-white uppercase tracking-widest mb-4 flex items-center gap-2">
-                                <span class="w-8 h-px bg-primary"></span> Key Achievements
-                            </h4>
-                            <ul class="space-y-4">
-                                <li class="flex items-start gap-3">
-                                    <span class="material-symbols-outlined text-primary mt-0.5"
-                                        style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Real-time sensor data ingestion via
-                                        ESP8266</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="material-symbols-outlined text-primary mt-0.5"
-                                        style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Firebase Realtime Database sync &amp; cloud
-                                        storage</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="material-symbols-outlined text-primary mt-0.5"
-                                        style="font-size:18px">check_circle</span>
-                                    <span class="text-on-surface-variant">Native Android dashboard with push
-                                        alerts</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-wrap gap-2 pt-4">
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">ESP8266</span>
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Firebase</span>
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Android</span>
-                            <span
-                                class="px-3 py-1 border rounded-full text-xs font-mono bg-primary/5 text-primary border-primary/20">Push
-                                Notifications</span>
-                        </div>
+                    <a href="https://github.com/Helmy2/PixelBit" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
+                </div>
+
+                <div class="cartridge reveal-item" data-category="kmp">
+                    <div class="cartridge-label bg-xp">KMP</div>
+                    <h3 class="cartridge-title">CleanEntry</h3>
+                    <p class="cartridge-desc">Case study for Android, iOS &amp; Desktop: Clean Architecture, MVI, Compose Multiplatform + hybrid SwiftUI.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">Clean Arch</span><span class="tech-tag-sm">MVI</span>
                     </div>
+                    <a href="https://github.com/Helmy2/CleanEntry" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
+                </div>
+
+                <div class="cartridge reveal-item" data-category="kmp">
+                    <div class="cartridge-label bg-tertiary">KMP</div>
+                    <h3 class="cartridge-title">POS-ERP</h3>
+                    <p class="cartridge-desc">Offline-first POS + ERP for Android &amp; Desktop. Room + Supabase sync, role-based access, real-time updates.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">Room</span><span class="tech-tag-sm">RBAC</span>
+                    </div>
+                    <a href="https://github.com/Helmy2/POS-ERP" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
+                </div>
+
+                <div class="cartridge reveal-item" data-category="iot">
+                    <div class="cartridge-label bg-primary">IOT</div>
+                    <h3 class="cartridge-title">IoT Environmental Monitor</h3>
+                    <p class="cartridge-desc">ESP8266 sensor streams live data to Firebase. Native Android dashboard with charts, offline caching, push alerts.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">ESP8266</span><span class="tech-tag-sm">Firebase</span>
+                    </div>
+                    <a href="https://github.com/Helmy2/TempReader" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
+                </div>
+
+                <div class="cartridge reveal-item" data-category="kmp">
+                    <div class="cartridge-label bg-tertiary">KMP</div>
+                    <h3 class="cartridge-title">CrossCart</h3>
+                    <p class="cartridge-desc">Multi-vendor e-commerce storefront across Android, iOS &amp; Desktop. Clean MVI, real-time sync via Supabase, offline support.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">MVI</span><span class="tech-tag-sm">Supabase</span><span class="tech-tag-sm">Offline</span>
+                    </div>
+                    <a href="https://github.com/Helmy2/CrossCart" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
+                </div>
+
+                <div class="cartridge reveal-item" data-category="android">
+                    <div class="cartridge-label bg-primary">ANDROID</div>
+                    <h3 class="cartridge-title">WanderPedia</h3>
+                    <p class="cartridge-desc">Explore world wonders with Clean Architecture + two MVI patterns. Google Maps, Firebase, Hilt, Room caching.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">Maps</span><span class="tech-tag-sm">Hilt</span>
+                    </div>
+                    <a href="https://github.com/Helmy2/WanderPedia" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
+                </div>
+
+                <div class="cartridge reveal-item" data-category="android">
+                    <div class="cartridge-label bg-primary">ANDROID</div>
+                    <h3 class="cartridge-title">ShowMagnet</h3>
+                    <p class="cartridge-desc">Movie discovery via the TMDB API. Clean Architecture, MVI, Hilt for DI, Room for local persistence.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">TMDB</span><span class="tech-tag-sm">MVI</span>
+                    </div>
+                    <a href="https://github.com/Helmy2/ShowMagnet" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
+                </div>
+
+                <div class="cartridge reveal-item" data-category="ai">
+                    <div class="cartridge-label bg-xp">AI / GAME</div>
+                    <h3 class="cartridge-title">Diabetes Prediction</h3>
+                    <p class="cartridge-desc">Random Forest classifier predicting diabetes with 0.94 AUC. Feature selection, class imbalance handling, ONNX deployment.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">ML</span><span class="tech-tag-sm">ONNX</span>
+                    </div>
+                    <a href="https://github.com/Helmy2/Diabetes-Health-Indicators" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
+                </div>
+
+                <div class="cartridge reveal-item" data-category="android">
+                    <div class="cartridge-label bg-tertiary">ANDROID</div>
+                    <h3 class="cartridge-title">Location Reminder</h3>
+                    <p class="cartridge-desc">Geofence-powered to-do app triggering reminders by location. MVVM, classic Views, Koin DI.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">MVVM</span><span class="tech-tag-sm">Geofencing</span>
+                    </div>
+                    <a href="https://github.com/Helmy2/Location-Reminder" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
+                </div>
+
+                <div class="cartridge reveal-item" data-category="ai">
+                    <div class="cartridge-label bg-tertiary">AI / GAME</div>
+                    <h3 class="cartridge-title">AI-Powered Pacman</h3>
+                    <p class="cartridge-desc">Classic Pacman built in Pygame — ghosts hunt you down using DFS/BFS search algorithms. Unpredictable on purpose.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="tech-tag-sm">Python</span><span class="tech-tag-sm">Pygame</span><span class="tech-tag-sm">AI Search</span>
+                    </div>
+                    <a href="https://github.com/Helmy2/Pacman-Game" target="_blank" rel="noopener" class="cartridge-link">GITHUB ↗</a>
                 </div>
 
             </div>
         </section>
 
-        <!-- ──────────── SKILLS ──────────── -->
-        <section id="tech" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
-
-            <div class="mb-16 md:mb-20">
-                <div class="section-reveal" data-reveal-direction="ltr">
-                    <div class="reveal-overlay"></div>
-                    <svg class="reveal-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                        <line class="rl-glow" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="6"
-                            stroke-linecap="round" opacity="0.3" />
-                        <line class="rl-core" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="2"
-                            stroke-linecap="round" />
-                    </svg>
-                    <div class="reveal-content">
-                        <div class="section-accent"></div>
-                        <h2 class="font-display text-display-lg-mobile md:text-display-lg text-white leading-tight">
-                            Skills &amp; <span class="text-primary">Expertise</span>
-                        </h2>
-                        <p class="text-on-surface-variant text-body-lg mt-4 max-w-2xl">
-                            Technologies and tools I work with across the full stack.
-                        </p>
-                    </div>
-                </div>
+        <!-- ──────────── LEVEL 04 — SKILLS ──────────── -->
+        <section id="skills" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
+            <div class="level-header reveal-item">
+                <p class="font-pixel text-[10px] text-tertiary mb-3">LEVEL 04</p>
+                <h2 class="font-pixel text-xl md:text-3xl text-ink leading-relaxed">SKILL TREE // INVENTORY</h2>
+                <p class="text-ink-muted text-sm mt-4 max-w-2xl">Power-ups collected across the campaign.</p>
             </div>
 
-            <div class="space-y-8 reveal-item">
-                <!-- Mobile & Cross-Platform -->
-                <div class="glass-card rounded-xl p-8 glow-amethyst">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                            <span class="material-symbols-outlined text-primary" style="font-size:22px">phone_android</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Mobile &amp; Cross-Platform</h3>
-                    </div>
+            <div class="space-y-8 mt-14">
+                <div class="pixel-corners bg-surface border-2 border-line p-6 md:p-8 reveal-item glow-primary">
+                    <h3 class="font-pixel text-xs text-ink mb-5">📱 MOBILE &amp; CROSS-PLATFORM</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-4 py-2 rounded-full bubble-glow text-primary text-sm font-display">Kotlin</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Jetpack Compose</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Kotlin Multiplatform</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Compose Multiplatform</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Clean Architecture</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">MVVM</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">MVI</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Coroutines</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Flow</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Navigation 3</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Hilt</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">WorkManager</span>
+                        <span class="skill-slot is-key">Kotlin</span>
+                        <span class="skill-slot">Jetpack Compose</span>
+                        <span class="skill-slot">Kotlin Multiplatform</span>
+                        <span class="skill-slot">Compose Multiplatform</span>
+                        <span class="skill-slot">Clean Architecture</span>
+                        <span class="skill-slot">MVVM</span>
+                        <span class="skill-slot">MVI</span>
+                        <span class="skill-slot">Coroutines</span>
+                        <span class="skill-slot">Flow</span>
+                        <span class="skill-slot">Navigation 3</span>
+                        <span class="skill-slot">Hilt</span>
+                        <span class="skill-slot">WorkManager</span>
                     </div>
                 </div>
 
-                <!-- Platform, Backend & Security -->
-                <div class="glass-card rounded-xl p-8 glow-amethyst">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                            <span class="material-symbols-outlined text-primary" style="font-size:22px">dns</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Platform, Backend &amp; Security</h3>
-                    </div>
+                <div class="pixel-corners bg-surface border-2 border-line p-6 md:p-8 reveal-item glow-primary">
+                    <h3 class="font-pixel text-xs text-ink mb-5">🛰 PLATFORM, BACKEND &amp; SECURITY</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-4 py-2 rounded-full bubble-glow text-primary text-sm font-display">Ktor</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Koin</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Room</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Swift</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">SwiftUI</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Xcode</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">SPM</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Firebase</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Supabase</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">REST</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">GraphQL</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Google Tink</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">DataStore</span>
+                        <span class="skill-slot is-key">Ktor</span>
+                        <span class="skill-slot">Koin</span>
+                        <span class="skill-slot">Room</span>
+                        <span class="skill-slot">Swift</span>
+                        <span class="skill-slot">SwiftUI</span>
+                        <span class="skill-slot">Xcode</span>
+                        <span class="skill-slot">SPM</span>
+                        <span class="skill-slot">Firebase</span>
+                        <span class="skill-slot">Supabase</span>
+                        <span class="skill-slot">REST</span>
+                        <span class="skill-slot">GraphQL</span>
+                        <span class="skill-slot">Google Tink</span>
+                        <span class="skill-slot">DataStore</span>
                     </div>
                 </div>
 
-                <!-- Tools & Testing -->
-                <div class="glass-card rounded-xl p-8 glow-amethyst">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                            <span class="material-symbols-outlined text-primary" style="font-size:22px">build</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Tools &amp; Testing</h3>
-                    </div>
+                <div class="pixel-corners bg-surface border-2 border-line p-6 md:p-8 reveal-item glow-primary">
+                    <h3 class="font-pixel text-xs text-ink mb-5">🛠 TOOLS &amp; TESTING</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-4 py-2 rounded-full bubble-glow text-primary text-sm font-display">Git</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">GitHub</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">GitHub Actions</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">CI/CD</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Gradle</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Gradle Version Catalogs</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">JUnit</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Mockito / Mokkery</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Compose UI Testing</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Screenshot Testing</span>
-                        <span class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface border border-outline-variant/30 text-sm">Maestro</span>
+                        <span class="skill-slot is-key">Git</span>
+                        <span class="skill-slot">GitHub Actions</span>
+                        <span class="skill-slot">CI/CD</span>
+                        <span class="skill-slot">Gradle</span>
+                        <span class="skill-slot">Version Catalogs</span>
+                        <span class="skill-slot">JUnit</span>
+                        <span class="skill-slot">Mockito / Mokkery</span>
+                        <span class="skill-slot">Compose UI Testing</span>
+                        <span class="skill-slot">Screenshot Testing</span>
+                        <span class="skill-slot">Maestro</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ──────────── CERTIFICATIONS ──────────── -->
-        <section id="certifications"
-            class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
-
-            <div class="mb-10">
-                <div class="section-reveal" data-reveal-direction="ltr">
-                    <div class="reveal-overlay"></div>
-                    <svg class="reveal-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                        <line class="rl-glow" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="6"
-                            stroke-linecap="round" opacity="0.3" />
-                        <line class="rl-core" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7" stroke-width="2"
-                            stroke-linecap="round" />
-                    </svg>
-                    <div class="reveal-content">
-                        <div class="section-accent"></div>
-                        <h2 class="font-display text-3xl md:text-4xl text-white font-bold">Certifications</h2>
-                        <p class="text-on-surface-variant mt-2">Verified expertise &amp; continuous learning</p>
-                    </div>
-                </div>
+        <!-- ──────────── ACHIEVEMENTS — CERTIFICATIONS ──────────── -->
+        <section id="achievements" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
+            <div class="level-header reveal-item">
+                <p class="font-pixel text-[10px] text-tertiary mb-3">BONUS STAGE</p>
+                <h2 class="font-pixel text-xl md:text-3xl text-ink leading-relaxed">ACHIEVEMENTS UNLOCKED</h2>
             </div>
 
-            <div class="reveal-on-scroll flex flex-wrap gap-4 justify-center md:justify-start">
-                <div class="cert-pill rounded-full px-6 py-3 flex items-center gap-3">
-                    <span class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_#A855F7] flex-shrink-0"></span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-14">
+                <div class="achievement reveal-item">
+                    <span class="text-2xl">🏆</span>
                     <div>
-                        <p class="font-mono text-sm font-medium text-white">Building Industry-Level Compose Multiplatform Apps</p>
-                        <p class="font-mono text-xs text-on-surface-variant">PL-Coding · 2026</p>
+                        <p class="achievement-title">Building Industry-Level Compose Multiplatform Apps</p>
+                        <p class="achievement-meta">PL-Coding · 2026</p>
                     </div>
                 </div>
-                <div class="cert-pill rounded-full px-6 py-3 flex items-center gap-3">
-                    <span class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_#A855F7] flex-shrink-0"></span>
+                <div class="achievement reveal-item">
+                    <span class="text-2xl">🏆</span>
                     <div>
-                        <p class="font-mono text-sm font-medium text-white">DEBI Android Developer Track</p>
-                        <p class="font-mono text-xs text-on-surface-variant">2025</p>
+                        <p class="achievement-title">Android Developer Track</p>
+                        <p class="achievement-meta">Digital Egypt Builders Initiative · 2025</p>
                     </div>
                 </div>
-                <div class="cert-pill rounded-full px-6 py-3 flex items-center gap-3">
-                    <span class="w-2 h-2 rounded-full bg-primary/70 flex-shrink-0"></span>
+                <div class="achievement reveal-item">
+                    <span class="text-2xl">🥈</span>
                     <div>
-                        <p class="font-mono text-sm font-medium text-white">ITI Android Track</p>
-                        <p class="font-mono text-xs text-on-surface-variant">2023</p>
+                        <p class="achievement-title">Android Application Developer Track</p>
+                        <p class="achievement-meta">ITI · 2023</p>
                     </div>
                 </div>
-                <div class="cert-pill rounded-full px-6 py-3 flex items-center gap-3">
-                    <span class="w-2 h-2 rounded-full bg-primary/70 flex-shrink-0"></span>
+                <div class="achievement reveal-item">
+                    <span class="text-2xl">🥈</span>
                     <div>
-                        <p class="font-mono text-sm font-medium text-white">Udacity Advanced Android Nanodegree</p>
-                        <p class="font-mono text-xs text-on-surface-variant">2022</p>
+                        <p class="achievement-title">Advanced Android Nanodegree</p>
+                        <p class="achievement-meta">Udacity &amp; FWD · 2022</p>
                     </div>
                 </div>
-                <div class="cert-pill rounded-full px-6 py-3 flex items-center gap-3">
-                    <span class="w-2 h-2 rounded-full bg-primary/70 flex-shrink-0"></span>
+                <div class="achievement reveal-item">
+                    <span class="text-2xl">🥈</span>
                     <div>
-                        <p class="font-mono text-sm font-medium text-white">DeepLearning.AI ML Specialization</p>
-                        <p class="font-mono text-xs text-on-surface-variant">2022</p>
+                        <p class="achievement-title">Machine Learning Specialization</p>
+                        <p class="achievement-meta">DeepLearning.AI / Coursera · 2022</p>
                     </div>
                 </div>
-                <div class="cert-pill rounded-full px-6 py-3 flex items-center gap-3">
-                    <span class="w-2 h-2 rounded-full bg-primary/70 flex-shrink-0"></span>
+                <div class="achievement reveal-item">
+                    <span class="text-2xl">🥉</span>
                     <div>
-                        <p class="font-mono text-sm font-medium text-white">CS50 Harvard</p>
-                        <p class="font-mono text-xs text-on-surface-variant">2021</p>
+                        <p class="achievement-title">CS50: Computer Science</p>
+                        <p class="achievement-meta">Harvard University · 2021</p>
                     </div>
                 </div>
-                <div class="cert-pill rounded-full px-6 py-3 flex items-center gap-3">
-                    <span class="w-2 h-2 rounded-full bg-primary/70 flex-shrink-0"></span>
+                <div class="achievement reveal-item">
+                    <span class="text-2xl">🥉</span>
                     <div>
-                        <p class="font-mono text-sm font-medium text-white">Algorithmic Toolbox (Coursera)</p>
-                        <p class="font-mono text-xs text-on-surface-variant">2021</p>
+                        <p class="achievement-title">Algorithmic Toolbox</p>
+                        <p class="achievement-meta">Coursera · 2021</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ──────────── CONTACT ──────────── -->
+        <!-- ──────────── SIDE QUEST — HOBBIES ──────────── -->
+        <section id="hobbies" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
+            <div class="level-header reveal-item">
+                <p class="font-pixel text-[10px] text-tertiary mb-3">SIDE QUEST</p>
+                <h2 class="font-pixel text-xl md:text-3xl text-ink leading-relaxed">OFF THE CLOCK</h2>
+                <p class="text-ink-muted text-sm mt-4 max-w-2xl">The stats that don't go on a resume.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-14">
+                <div class="achievement reveal-item">
+                    <span class="text-2xl">🏃</span>
+                    <div>
+                        <p class="achievement-title">Running</p>
+                        <p class="achievement-meta">Logging miles like XP points</p>
+                    </div>
+                </div>
+                <div class="achievement reveal-item">
+                    <span class="text-2xl">⚽</span>
+                    <div>
+                        <p class="achievement-title">Football</p>
+                        <p class="achievement-meta">Weekend five-a-side, usually left wing</p>
+                    </div>
+                </div>
+                <div class="achievement reveal-item">
+                    <span class="text-2xl">🎮</span>
+                    <div>
+                        <p class="achievement-title">Video Games</p>
+                        <p class="achievement-meta">Still chasing high scores</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──────────── FINAL STAGE — CONTACT ──────────── -->
         <section id="contact" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
+            <div class="level-header reveal-item">
+                <p class="font-pixel text-[10px] text-tertiary mb-3">FINAL STAGE</p>
+                <h2 class="font-pixel text-xl md:text-3xl text-ink leading-relaxed">CONTINUE?</h2>
+                <p class="text-ink-muted text-sm mt-4 max-w-2xl">Insert coin to start a new project together.</p>
+            </div>
 
-            <div class="reveal-on-scroll glass-card rounded-3xl overflow-hidden">
-                <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-14 reveal-item">
 
-                    <!-- Left: Info -->
-                    <div class="p-8 md:p-12 bg-surface-container-high/50">
-                        <div class="section-reveal" data-reveal-direction="ltr">
-                            <div class="reveal-overlay"></div>
-                            <svg class="reveal-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                                <line class="rl-glow" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7"
-                                    stroke-width="6" stroke-linecap="round" opacity="0.3" />
-                                <line class="rl-core" x1="-15" y1="0" x2="-30" y2="100" stroke="#A855F7"
-                                    stroke-width="2" stroke-linecap="round" />
-                            </svg>
-                            <div class="reveal-content">
-                                <span class="font-mono text-primary uppercase tracking-widest text-sm">Get in touch</span>
-                                <h3 class="text-3xl font-bold mt-2 mb-6 text-white font-display">Let's build something
-                                    exceptional</h3>
-                            </div>
+                <!-- Info menu -->
+                <div class="pixel-corners bg-surface border-2 border-line p-6 md:p-8 glow-primary">
+                    <p class="font-pixel text-[10px] text-secondary mb-6">— SELECT AN OPTION —</p>
+                    <div class="space-y-1">
+                        <a href="mailto:mohelmy.eng@gmail.com" class="contact-row">
+                            <span class="contact-row-arrow">▸</span> mohelmy.eng@gmail.com
+                        </a>
+                        <div class="contact-row">
+                            <span class="contact-row-arrow">▸</span> Cairo, Egypt — Remote / Worldwide
                         </div>
-                        <div class="space-y-3">
-                            <a href="mailto:mohelmy.eng@gmail.com"
-                                class="flex items-center gap-4 p-3 rounded-xl bg-surface-container-low border border-outline-variant hover:border-primary/50 transition-colors">
-                                <span class="material-symbols-outlined text-primary" style="font-size:20px">mail</span>
-                                <span class="text-sm">mohelmy.eng@gmail.com</span>
-                            </a>
-                            <div
-                                class="flex items-center gap-4 p-3 rounded-xl bg-surface-container-low border border-outline-variant">
-                                <span class="material-symbols-outlined text-primary"
-                                    style="font-size:20px">location_on</span>
-                                <span class="text-sm">Remote / Worldwide</span>
-                            </div>
-                            <div
-                                class="flex items-center gap-4 p-3 rounded-xl bg-surface-container-low border border-outline-variant">
-                                <span class="material-symbols-outlined text-primary"
-                                    style="font-size:20px">schedule</span>
-                                <span class="text-sm">Available for new projects</span>
-                            </div>
-                        </div>
-
-                        <!-- Social links -->
-                        <div class="flex gap-3 mt-8">
-                            <!-- GitHub -->
-                            <a href="https://github.com/helmy2" target="_blank" rel="noopener" class="social-btn"
-                                aria-label="GitHub">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-                                </svg>
-                            </a>
-                            <!-- LinkedIn -->
-                            <a href="https://linkedin.com/in/mo-helmy" target="_blank" rel="noopener" class="social-btn"
-                                aria-label="LinkedIn">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                                </svg>
-                            </a>
-                            <!-- Resume download -->
-                            <a href="assets/MOHAMED-HELMY-Resume.pdf" download class="social-btn"
-                                aria-label="Download Resume">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM12 17l-4-4h2.5v-4h3v4H16l-4 4z" />
-                                </svg>
-                            </a>
+                        <div class="contact-row">
+                            <span class="contact-row-arrow">▸</span> Available for new contracts
                         </div>
                     </div>
 
-                    <!-- Right: Form -->
-                    <div class="p-8 md:p-12 bg-surface-container">
-                        <form id="contact-form"
-                            onsubmit="event.preventDefault(); document.getElementById('form-success').classList.remove('hidden'); this.reset();">
-                            <div class="mb-4">
-                                <label for="name" class="block text-sm mb-1 text-on-surface-variant">Name</label>
-                                <input id="name" type="text" required
-                                    class="w-full bg-[#080B14] border border-outline-variant rounded-lg px-4 py-3 text-sm focus:border-primary transition-colors">
-                            </div>
-                            <div class="mb-4">
-                                <label for="email" class="block text-sm mb-1 text-on-surface-variant">Email</label>
-                                <input id="email" type="email" required
-                                    class="w-full bg-[#080B14] border border-outline-variant rounded-lg px-4 py-3 text-sm focus:border-primary transition-colors">
-                            </div>
-                            <div class="mb-4">
-                                <label for="message" class="block text-sm mb-1 text-on-surface-variant">Message</label>
-                                <textarea id="message" rows="4" required
-                                    class="w-full bg-[#080B14] border border-outline-variant rounded-lg px-4 py-3 text-sm focus:border-primary transition-colors resize-none"></textarea>
-                            </div>
-                            <!-- Success message -->
-                            <div id="form-success"
-                                class="hidden mb-4 p-3 rounded-lg bg-primary/10 border border-primary/30 text-primary text-sm text-center">
-                                ✓ Thanks! I'll be in touch soon.
-                            </div>
-                            <button type="submit"
-                                class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary/90 transition-all glow-button flex items-center justify-center gap-2">
-                                Send Message
-                                <span class="material-symbols-outlined text-base" style="font-size:18px">send</span>
-                            </button>
-                        </form>
+                    <div class="flex gap-3 mt-8">
+                        <a href="https://github.com/helmy2" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                            </svg>
+                        </a>
+                        <a href="https://linkedin.com/in/mo-helmy" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                            </svg>
+                        </a>
+                        <a href="assets/Mohamed_Helmy_Resume.pdf" download class="social-btn" aria-label="Download Resume">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM12 17l-4-4h2.5v-4h3v4H16l-4 4z" />
+                            </svg>
+                        </a>
                     </div>
                 </div>
+
+                <!-- Big CTA -->
+                <div class="pixel-corners bg-primary/10 border-2 border-primary p-6 md:p-8 flex flex-col justify-center items-start glow-primary">
+                    <p class="font-pixel text-[10px] text-primary mb-4">1UP</p>
+                    <h3 class="font-pixel text-sm md:text-base text-ink leading-relaxed mb-4">READY PLAYER TWO?</h3>
+                    <p class="text-ink-muted text-sm leading-relaxed mb-6">
+                        Got an Android or Kotlin Multiplatform project that needs a co-op partner? Let's team up.
+                    </p>
+                    <a href="mailto:mohelmy.eng@gmail.com" class="btn-arcade pixel-corners-sm bg-primary text-background px-7 py-3.5 font-pixel text-[10px]">
+                        ▶ SEND MESSAGE
+                    </a>
+                </div>
+
             </div>
         </section>
 
     </main>
 
     <!-- ═══════════════════ FOOTER ═══════════════════ -->
-    <footer class="border-t border-white/5 py-8 text-center text-on-surface-variant text-sm">
-        <div
-            class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4">
-            <span>© 2026 Mohamed Helmy — Kotlin Multiplatform Engineer</span>
+    <footer class="border-t-2 border-line py-8 text-center">
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4 font-pixel text-[9px] text-ink-muted">
+            <span>© 2026 MOHAMED HELMY — GAME OVER? <span class="text-secondary">CONTINUE</span></span>
             <div class="flex gap-6">
-                <a href="https://github.com/helmy2" target="_blank" rel="noopener"
-                    class="hover:text-primary transition-colors">GitHub</a>
-                <a href="https://linkedin.com/in/mo-helmy" target="_blank" rel="noopener"
-                    class="hover:text-primary transition-colors">LinkedIn</a>
-                <a href="assets/MOHAMED-HELMY-Resume.pdf" download
-                    class="hover:text-primary transition-colors">Resume</a>
+                <a href="https://github.com/helmy2" target="_blank" rel="noopener" class="hover:text-secondary transition-colors">GITHUB</a>
+                <a href="https://linkedin.com/in/mo-helmy" target="_blank" rel="noopener" class="hover:text-secondary transition-colors">LINKEDIN</a>
+                <a href="assets/Mohamed_Helmy_Resume.pdf" download class="hover:text-secondary transition-colors">RESUME</a>
             </div>
         </div>
     </footer>
 
     <!-- ═══════════════════ SCROLL-TO-TOP ═══════════════════ -->
-    <button id="scroll-top" aria-label="Scroll to top">
-        <span class="material-symbols-outlined" style="font-size:20px">arrow_upward</span>
-    </button>
-
-    <!-- ═══════════════════ SHADER SCRIPT ═══════════════════ -->
-    <script>
-            (function () {
-                const canvas = document.getElementById('shader-canvas');
-                function syncSize() {
-                    const w = canvas.clientWidth || window.innerWidth;
-                    const h = canvas.clientHeight || window.innerHeight;
-                    if (canvas.width !== w || canvas.height !== h) {
-                        canvas.width = w;
-                        canvas.height = h;
-                    }
-                }
-                window.addEventListener('resize', syncSize, { passive: true });
-                syncSize();
-                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-                if (!gl) return;
-
-                const vs = `attribute vec2 a_position;
-varying vec2 v_texCoord;
-void main() {
-  v_texCoord = a_position * 0.5 + 0.5;
-  gl_Position = vec4(a_position, 0.0, 1.0);
-}`;
-                const fs = `precision highp float;
-uniform float u_time;
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-varying vec2 v_texCoord;
-void main() {
-    vec2 uv = v_texCoord;
-    vec2 mouse = u_mouse / u_resolution;
-    float wave = sin(uv.x * 2.5 + u_time * 0.4) * 0.1;
-    wave += sin(uv.y * 1.5 - u_time * 0.2) * 0.1;
-    vec3 color1 = vec3(0.043, 0.059, 0.098);
-    vec3 color2 = vec3(0.659, 0.333, 0.969);
-    float intensity = smoothstep(0.3 + wave, 0.7 + wave, uv.y + sin(uv.x * 4.0 + u_time * 0.8) * 0.15);
-    intensity *= (1.0 - uv.y);
-    float dist = distance(uv, mouse);
-    float mouseGlow = smoothstep(0.4, 0.0, dist) * 0.25;
-    vec3 finalColor = mix(color1, color2, intensity * 0.4);
-    finalColor += color2 * mouseGlow;
-    gl_FragColor = vec4(finalColor, 1.0);
-}`;
-                function createShader(type, src) {
-                    const s = gl.createShader(type);
-                    gl.shaderSource(s, src);
-                    gl.compileShader(s);
-                    return s;
-                }
-                const prog = gl.createProgram();
-                gl.attachShader(prog, createShader(gl.VERTEX_SHADER, vs));
-                gl.attachShader(prog, createShader(gl.FRAGMENT_SHADER, fs));
-                gl.linkProgram(prog);
-                gl.useProgram(prog);
-                const buf = gl.createBuffer();
-                gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
-                const pos = gl.getAttribLocation(prog, 'a_position');
-                gl.enableVertexAttribArray(pos);
-                gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
-                const uTime = gl.getUniformLocation(prog, 'u_time');
-                const uRes = gl.getUniformLocation(prog, 'u_resolution');
-                const uMouse = gl.getUniformLocation(prog, 'u_mouse');
-                let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
-                window.addEventListener('mousemove', (e) => {
-                    const rect = canvas.getBoundingClientRect();
-                    if (rect.width && rect.height) {
-                        mouse.x = (e.clientX - rect.left) / rect.width * canvas.width;
-                        mouse.y = (1.0 - (e.clientY - rect.top) / rect.height) * canvas.height;
-                    }
-                }, { passive: true });
-                function render(t) {
-                    syncSize();
-                    gl.viewport(0, 0, canvas.width, canvas.height);
-                    gl.uniform1f(uTime, t * 0.001);
-                    gl.uniform2f(uRes, canvas.width, canvas.height);
-                    gl.uniform2f(uMouse, mouse.x, mouse.y);
-                    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-                    requestAnimationFrame(render);
-                }
-                render(0);
-            })();
-    </script>
-
-    <!-- ═══════════════════ MOUSE PARALLAX ═══════════════════ -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('hero-mockups');
-            if (!container) return;
-            const layers = container.querySelectorAll('.parallax-layer');
-            container.addEventListener('mousemove', (e) => {
-                const rect = container.getBoundingClientRect();
-                const x = (e.clientX - rect.left) / rect.width - 0.5;
-                const y = (e.clientY - rect.top) / rect.height - 0.5;
-                layers.forEach(layer => {
-                    const factor = parseFloat(layer.dataset.parallaxFactor) || 10;
-                    layer.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
-                });
-            });
-            container.addEventListener('mouseleave', () => {
-                layers.forEach(layer => {
-                    layer.style.transform = 'translate(0, 0)';
-                });
-            });
-        });
-    </script>
+    <button id="scroll-top" class="pixel-corners-sm font-pixel text-[8px]" aria-label="Scroll to top">▲<br>TOP</button>
 
     <!-- ═══════════════════ MAIN JS ═══════════════════ -->
     <script src="js/main.js"></script>
